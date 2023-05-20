@@ -8,7 +8,6 @@ import {
   Flex,
   Heading,
   Image,
-  Img,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -20,30 +19,35 @@ const ProductCard = ({ title, price, description, img, rating }) => {
     <Card minH={"400px"} maxW={"300px"}>
       <CardBody>
         <Image
-          boxSize="120px"
+          boxSize="140px"
           objectFit="contain"
           m={"auto"}
           borderRadius={"lg"}
           src={img}
         />
 
-        <Stack mt="6" spacing="3" textAlign={"justify"}>
-          <Heading size="md" fontWeight={"500"}>
+        <Stack h={"130px"} mt={"10"} spacing="2" textAlign={"justify"}>
+          <Heading size="20px" fontWeight={"500"}>
             {String(title).substring(0, 20)}
           </Heading>
-          <Text>{String(description).substring(0, 60)+"..."}</Text>
+          <Text>{String(description).substring(0, 60) + "..."}</Text>
         </Stack>
-        <Flex alignItems={"center"} gap={1}>
-          <Text fontSize={"xl"}>{rating}</Text>
+        <Flex alignItems={"center"} gap={1.5}>
+          <Text fontSize={"xl"}>{rating} </Text>
           <StarIcon color={"gold"} fontSize={"md"} />
+          <Text fontSize={"sm"}>{" 39 Reviews"}</Text>
         </Flex>
       </CardBody>
       <Divider color={"gray.200"} />
-      <CardFooter justifyContent={"space-between"}>
-        <Text color="black" fontSize="xl">
+      <CardFooter justifyContent={"space-between"} alignItems={"center"}>
+        <Text color="black" fontSize="17px">
           ₹{price}
         </Text>
-        <Button size={["sm","md"]} borderRadius={"xl"} colorScheme="blackAlpha">
+        <Button
+          size={["sm", "md"]}
+          borderRadius={"2rem"}
+          colorScheme="blackAlpha"
+        >
           <BsBag /> <Text ml={"2"}>Add To Cart</Text>
         </Button>
       </CardFooter>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -11,8 +11,9 @@ import "swiper/css/autoplay";
 import "./Carousel.scss";
 
 // import required modules
-import { Pagination, Navigation,Autoplay } from "swiper";
-import { Img } from "@chakra-ui/react";
+import {  Navigation,Autoplay } from "swiper";
+import { Flex } from "@chakra-ui/react";
+import CarouselCard from "./CarouselCard";
 
 export default function Carousel() {
   const cards = [
@@ -37,7 +38,9 @@ export default function Carousel() {
       >
         {cards.map((ele) => (
           <SwiperSlide>
-            <Img src={ele} />
+            <Flex bg={"#e3ffe6"} w={"full"} h={"full"}>
+              <CarouselCard />
+            </Flex>
           </SwiperSlide>
         ))}
       </Swiper>

@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Carousel from "../Components/Homepage/Carousel/Carousel";
 import Navbar from "../Components/Homepage/Navbar";
 import ProductSlider from "../Components/Products/ProductSlider";
+import { Divider } from "@chakra-ui/react";
+import CategoryBox from "../Components/Homepage/Category/CategoryBox";
 
 const Homepage = () => {
   const arr = [
@@ -168,6 +170,10 @@ const Homepage = () => {
         title={"Discover more."}
         subTitle={"Good things are waiting for you"}
       />
+
+      <Divider w={"80%"} m={"auto"} my={"4rem"}/>
+
+      <CategoryBox /> 
     </>
   );
 };
