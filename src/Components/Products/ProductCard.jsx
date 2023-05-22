@@ -6,6 +6,7 @@ import {
   CardFooter,
   Divider,
   Flex,
+  HStack,
   Heading,
   Image,
   Stack,
@@ -14,12 +15,14 @@ import {
 import React from "react";
 import { BsBag } from "react-icons/bs";
 
+import { AiOutlineHeart } from "react-icons/ai";
+
 const ProductCard = ({ title, price, description, img, rating }) => {
   return (
     <Card minH={"400px"} maxW={"300px"}>
       <CardBody>
         <Image
-          boxSize="140px"
+          w={"90%"}
           objectFit="contain"
           m={"auto"}
           borderRadius={"lg"}
@@ -35,21 +38,29 @@ const ProductCard = ({ title, price, description, img, rating }) => {
         <Flex alignItems={"center"} gap={1.5}>
           <Text fontSize={"xl"}>{rating} </Text>
           <StarIcon color={"gold"} fontSize={"md"} />
-          <Text fontSize={"sm"}>{" 39 Reviews"}</Text>
+          <Text fontSize={"sm"} ml={"auto"}>
+            {" 39 Reviews"}
+          </Text>
         </Flex>
       </CardBody>
       <Divider color={"gray.200"} />
-      <CardFooter justifyContent={"space-between"} alignItems={"center"}>
+      <CardFooter justifyContent={"space-between"} gap={"3"} alignItems={"center"}>
         <Text color="black" fontSize="17px">
           ₹{price}
         </Text>
-        <Button
-          size={["sm", "md"]}
-          borderRadius={"2rem"}
-          colorScheme="blackAlpha"
-        >
-          <BsBag /> <Text ml={"2"}>Add To Cart</Text>
-        </Button>
+        <HStack gap={"1"}>
+          <AiOutlineHeart fontSize={"25px"} />
+          <Button
+            size={["sm", "md"]}
+            borderRadius={"2rem"}
+            bg={"#0f172a"}
+            colorScheme=""
+            _hover={{ boxShadow: "lg" }}
+            color={"white"}
+          >
+            <BsBag /> <Text ml={"2"}>Add To Cart</Text>
+          </Button>
+        </HStack>
       </CardFooter>
     </Card>
   );

@@ -75,11 +75,11 @@ const ProductSlider = ({ title, subTitle, data }) => {
             <SwiperSlide>
               <ProductCard
                 key={ele.id}
-                title={ele.title}
+                title={ele.name}
                 price={ele.price}
                 description={ele.description}
                 img={ele.image}
-                rating={ele.rating.rate}
+                rating={ele.rating}
               />
             </SwiperSlide>
           ))}
