@@ -6,6 +6,7 @@ import SignUp from "../Components/UserAuth/SignUp";
 import Login from "../Components/UserAuth/Login";
 import Footer from "../Components/Footer";
 import Homepage from "./Homepage";
+import Product from "./Product";
 
 const AllRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AllRoutes = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/Signin" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/product" element={<Product />} />
       </Routes>
       <Footer />
     </BrowserRouter>

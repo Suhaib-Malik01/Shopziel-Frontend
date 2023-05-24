@@ -16,11 +16,12 @@ const Homepage = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8888/api/products/",
+        "https://online-shopping-application-production.up.railway.app/api/products/",
         requestOptions
       );
       let data = await response.json();
       
+      console.log(data);
       if(!data.status) setProductArr(data);
     } catch (error) {
       console.log("An error occurred:", error);
@@ -30,6 +31,13 @@ const Homepage = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+
+  // const fetchCategory = async () => {
+
+
+  // }
+
 
   return (
     <>
