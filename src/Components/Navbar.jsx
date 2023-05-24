@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Avatar,
   HStack,
   Link,
   IconButton,
@@ -20,7 +19,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-
+import { Link as RouteLink } from "react-router-dom";
 import {
   AiOutlineShoppingCart,
   AiOutlineHeart,
@@ -132,7 +131,7 @@ export default function Navbar() {
                 {localStorage.getItem("token") ? (
                   <MenuItem>Sign out</MenuItem>
                 ) : (
-                  <MenuItem>Sign In / Sign Up</MenuItem>
+                  <RouteLink to={"/signin"}><MenuItem>Sign In / Sign Up</MenuItem></RouteLink>
                 )}
               </MenuList>
             </Menu>
@@ -162,7 +161,7 @@ export default function Navbar() {
                 {localStorage.getItem("token") ? (
                   <MenuItem>Sign out</MenuItem>
                 ) : (
-                  <MenuItem>Sign In / Sign Up</MenuItem>
+                  <RouteLink to={"/signin"}><MenuItem>Sign In / Sign Up</MenuItem></RouteLink>
                 )}
               </MenuList>
             </Menu>
