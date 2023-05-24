@@ -1,5 +1,6 @@
 import { StarIcon } from "@chakra-ui/icons";
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -21,34 +22,41 @@ const ProductCard = ({ title, price, description, img, rating }) => {
   return (
     <Card minH={"400px"} maxW={"300px"}>
       <CardBody>
+      
+      <Box height="200px" width="100%" position="relative">
         <Image
-          w={"90%"}
-          objectFit="contain"
-          m={"auto"}
-          borderRadius={"lg"}
           src={img}
+          alt="Product"
+          objectFit="cover"
+          height="100%"
+          width="100%"
+          position="absolute"
+          top="0"
+          left="0"
+          borderRadius={"2xl"}
         />
+      </Box>
+        
 
-        <Stack h={"130px"} mt={"10"} spacing="2" textAlign={"justify"}>
+        <Stack spacing="2" mt={"5"} textAlign={"justify"}>
           <Heading size="20px" fontWeight={"500"}>
             {String(title).substring(0, 20)}
           </Heading>
-          <Text>{String(description).substring(0, 60) + "..."}</Text>
+          <Text fontSize={"md"}>{String(description).substring(0, 70) + "..."}</Text>
         </Stack>
-        <Flex alignItems={"center"} gap={1.5}>
-          <Text fontSize={"xl"}>{rating} </Text>
-          <StarIcon color={"gold"} fontSize={"md"} />
-          <Text fontSize={"sm"} ml={"auto"}>
-            {" 39 Reviews"}
+        <Flex alignItems={"center"} mt={"3"} gap={1.5}>
+          <Text color="black" fontSize="17px">
+            ₹{price}
           </Text>
+          <Text fontSize={"lg"} ml={"auto"}>
+            {rating}{" "}
+          </Text>
+          <StarIcon color={"gold"} fontSize={"md"} />
         </Flex>
       </CardBody>
       <Divider color={"gray.200"} />
-      <CardFooter justifyContent={"space-between"} gap={"3"} alignItems={"center"}>
-        <Text color="black" fontSize="17px">
-          ₹{price}
-        </Text>
-        <HStack gap={"1"}>
+      <CardFooter gap={"3"} alignItems={"center"}>
+        <HStack w={"full"} gap={"1"} justifyContent={"space-between"}>
           <AiOutlineHeart fontSize={"25px"} />
           <Button
             size={["sm", "md"]}
@@ -67,3 +75,5 @@ const ProductCard = ({ title, price, description, img, rating }) => {
 };
 
 export default ProductCard;
+
+
