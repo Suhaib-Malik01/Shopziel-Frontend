@@ -75,7 +75,7 @@ export default function Navbar() {
           >
             <HStack alignItems={"center"}>
               <AiOutlineShop size={"35px"} />
-              <Heading fontWeight={"500"}>Shopziel</Heading>
+              <RouteLink to={"/"}><Heading fontSize={"3xl"} fontWeight={"500"}>Shopziel</Heading></RouteLink>
             </HStack>
             <HStack
               as={"nav"}

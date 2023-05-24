@@ -1,6 +1,8 @@
-import { Button, Flex, Heading, Img, Text, VStack } from "@chakra-ui/react";
+import { Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import React from "react";
-import { AiOutlineSearch } from "react-icons/ai";
+import { BsSearch } from "react-icons/bs";
+import animationData from "../../AnimatedAssets/Clothes_store.json";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 const CarouselCard = () => {
   return (
@@ -9,12 +11,14 @@ const CarouselCard = () => {
       h={"full"}
       py={"2rem"}
       alignItems={"center"}
-      
+      justifyContent={"space-between"}
       m={"auto"}
+      bgImage={"https://ciseco-nextjs.vercel.app/_next/static/media/Moon.d5aa06ae.svg"}
+      bgSize={"100% 100%"}
       textAlign={"left"}
     >
       <VStack alignItems={"left"} spacing={10} px={"2"}>
-        <Heading fontSize={["3xl","4xl","6xl"]}>
+        <Heading fontSize={["3xl", "4xl", "6xl"]}>
           <Text fontSize={"2xl"}>In this season, find the best 🔥</Text>
           Exclusive collection
           <br />
@@ -28,12 +32,17 @@ const CarouselCard = () => {
           colorScheme=""
           size={"lg"}
         >
-          <Text mr={"2"}>Explore Now</Text> <AiOutlineSearch />
+          <Text mr={"2"}>Explore Now</Text> <BsSearch />
         </Button>
       </VStack>
 
-      <VStack display={["none","block","block"]}>
-        <Img src=""/>
+      <VStack justifyContent={"flex-end"}  w={"40%"} display={["none", "block", "block"]} alignItems="center">
+        <Player
+          autoplay
+          loop
+          src={animationData}
+          style={{ width: "100%", height: "90%" }}
+        />
       </VStack>
     </Flex>
   );

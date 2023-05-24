@@ -7,7 +7,7 @@ const CategoryCard = () => {
     <VStack
       borderRadius="2xl"
       p="1rem"
-      boxShadow="base"
+      boxShadow="sm"
       bgRepeat="no-repeat"
       bg={"white"}
       bgImage="https://ciseco-nextjs.vercel.app/_next/static/media/explore1.bafb60cf.svg"
@@ -18,23 +18,26 @@ const CategoryCard = () => {
       alignItems={"left"}
       transition={"all 0.2s"}
       _hover={{
-        boxShadow: 'lg',
-        '& .categoryCollection': {
-          color: 'blue.500',
+        boxShadow: "base",
+        "& .categoryCollection": {
+          color: "blue.500",
         },
-        cursor:"pointer"
+        cursor: "pointer",
       }}
     >
       <HStack justifyContent="space-between">
-        <Heading fontWeight={500}>Clothes</Heading>
         <Img
           w="20"
           borderRadius="50%"
           bg="blackAlpha.100"
           src="https://ciseco-nextjs.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F17.fcfa959c.png&w=828&q=75"
         />
+        <Text fontWeight={500}>{"55 Products"}</Text>
       </HStack>
 
+      
+        <Heading fontSize={"3xl"} fontWeight={500}>{"Category Name"}</Heading>
+    
       <Text
         fontSize="md"
         display="flex"

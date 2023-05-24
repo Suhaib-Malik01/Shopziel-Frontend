@@ -22,6 +22,19 @@ import { Link } from "react-router-dom";
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
+  // const signUp = async () => {
+  //   try {
+  //     const response = fetch("http://localhost:8888/api/users/", {
+  //       body: {
+
+  //       },
+  //       method: "POST",
+
+
+  //     });
+  //   } catch (err) {}
+  // };
+
   return (
     <Container h={"90vh"} px={"1rem"} py={"3rem"}>
       <VStack
@@ -61,11 +74,7 @@ const SignUp = () => {
         </InputGroup>
         <InputGroup>
           <InputLeftElement>
-            {showPassword ? (
-              <CiUnlock fontSize={"20px"} />
-            ) : (
-              <CiLock fontSize={"20px"} />
-            )}
+            <CiLock fontSize={"20px"} />
           </InputLeftElement>
           <Input type="password" placeholder="Confirm Password" />
         </InputGroup>
@@ -90,7 +99,9 @@ const SignUp = () => {
             <Text>Sign in with Google</Text>
           </Center>
         </Button>
-        <Text fontSize={"md"}>Already a Member ? <Link to={"/signin"}>Sign In</Link> </Text>
+        <Text fontSize={"md"}>
+          Already a Member ? <Link to={"/signin"}>Sign In</Link>{" "}
+        </Text>
       </VStack>
     </Container>
   );
