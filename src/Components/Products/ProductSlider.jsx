@@ -71,14 +71,15 @@ const ProductSlider = ({ title, subTitle, data }) => {
             },
           }}
         >
-          {data.map((ele) => (
+          {data.map((ele,index) => (
             <SwiperSlide>
               <ProductCard
-                key={ele.id}
+                id={ele.productId}
                 title={ele.name}
                 price={ele.price}
                 description={ele.description}
                 img={ele.image}
+                key={index}
                 rating={ele.rating}
               />
             </SwiperSlide>
