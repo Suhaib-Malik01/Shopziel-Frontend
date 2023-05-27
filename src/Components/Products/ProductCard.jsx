@@ -17,36 +17,46 @@ import React from "react";
 import { BsBag } from "react-icons/bs";
 
 import { AiOutlineHeart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
-const ProductCard = ({ title, price, description, img, rating }) => {
+const ProductCard = ({ id, title, price, description, img, rating }) => {
+  const navigate = useNavigate();
+
   return (
-    <Card minH={"400px"} maxW={"300px"}>
+    <Card
+      minH={"400px"}
+      maxW={"300px"}
+      onClick={() => navigate(`/product/${id}`)}
+      _hover={{cursor: "pointer", "& .productTitle" : {
+        color: "blue.500"
+      }}}
+    >
       <CardBody>
-      
-      <Box height="200px" width="100%" position="relative">
-        <Image
-          src={img}
-          alt="Product"
-          objectFit="cover"
-          height="100%"
-          width="100%"
-          position="absolute"
-          top="0"
-          left="0"
-          borderRadius={"2xl"}
-        />
-      </Box>
-        
+        <Box height="200px" width="100%" position="relative">
+          <Image
+            src={img}
+            alt="Product"
+            objectFit="cover"
+            height="100%"
+            width="100%"
+            position="absolute"
+            top="0"
+            left="0"
+            borderRadius={"2xl"}
+          />
+        </Box>
 
         <Stack spacing="2" mt={"5"} textAlign={"justify"}>
-          <Heading size="20px" fontWeight={"500"}>
+          <Heading size="20px" fontWeight={"500"} className="productTitle">
             {String(title).substring(0, 20)}
           </Heading>
-          <Text fontSize={"md"}>{String(description).substring(0, 70) + "..."}</Text>
+          <Text fontSize={"md"}>
+            {String(description).substring(0, 70) + "..."}
+          </Text>
         </Stack>
         <Flex alignItems={"center"} mt={"3"} gap={1.5}>
           <Text color="black" fontSize="17px">
-            ₹{price}
+            ₹ {price}
           </Text>
           <Text fontSize={"lg"} ml={"auto"}>
             {rating}{" "}
@@ -75,5 +85,3 @@ const ProductCard = ({ title, price, description, img, rating }) => {
 };
 
 export default ProductCard;
-
-
