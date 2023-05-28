@@ -19,14 +19,16 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, useNavigate } from "react-router-dom";
 import {
-  AiOutlineShoppingCart,
+  // AiOutlineShoppingCart,
   AiOutlineHeart,
   AiOutlineShop,
   AiOutlineSearch,
-  AiOutlineUser,
 } from "react-icons/ai";
+import CartMenu from "./CartMenu";
+
+import {HiOutlineUser} from 'react-icons/hi'
 
 const Links = ["New Arrivals", "Sale"];
 
@@ -47,6 +49,7 @@ const NavLink = ({ children }) => (
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -85,10 +88,12 @@ export default function Navbar() {
             >
               <InputGroup maxW={"500px"}>
                 <Input
+                borderRadius={"3xl"}
+                px={"5"}
                   placeholder="Search for Products"
                   w={["100%", "100%", "100%"]}
                 />
-                <InputRightElement px={"2"} _hover={{ cursor: "pointer" }}>
+                <InputRightElement px={"2"} mr={"1"} _hover={{ cursor: "pointer" }}>
                   <AiOutlineSearch size={"30px"} />
                 </InputRightElement>
               </InputGroup>
@@ -121,11 +126,12 @@ export default function Navbar() {
                 variant={"link"}
                 cursor={"pointer"}
                 minW={0}
+                color={"black"}
               >
-                <AiOutlineUser  size={"30px"} />
+                <HiOutlineUser  size={"30px"} />
               </MenuButton>
               <MenuList>
-                <MenuItem>Cart</MenuItem>
+                <MenuItem onClick={() => navigate("/cart")}>Cart</MenuItem>
                 <MenuItem>Orders</MenuItem>
                 <MenuDivider />
                 {localStorage.getItem("token") ? (
@@ -151,8 +157,9 @@ export default function Navbar() {
                 variant={"link"}
                 cursor={"pointer"}
                 minW={0}
+                color={"black"}
               >
-                <AiOutlineUser size={"25px"} />
+                <HiOutlineUser size={"25px"} />
               </MenuButton>
               <MenuList>
                 <MenuItem>Orders</MenuItem>
@@ -165,7 +172,7 @@ export default function Navbar() {
                 )}
               </MenuList>
             </Menu>
-            <AiOutlineShoppingCart size={"25px"} />
+            <CartMenu  />
             <AiOutlineHeart size={"25px"} />
           </Flex>
         </Flex>

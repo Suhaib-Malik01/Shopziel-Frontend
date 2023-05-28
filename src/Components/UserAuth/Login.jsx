@@ -2,7 +2,6 @@ import {
   Button,
   Center,
   Container,
-  HStack,
   Img,
   Input,
   InputGroup,
@@ -22,6 +21,55 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const signIn = async () => {
+    const data = Array.from(document.getElementsByClassName("data")).map(
+      (ele) => {
+        return ele.value;
+      }
+    );
+    console.log(data);
+
+    // try {
+    //   let response = await fetch(
+    //     "https://shopziel.up.railway.app/api/users/signIn",
+    //     {
+    //       headers: {
+    //         Authorization: `Basic ${window.btoa(`${data[0]}:${data[1]}`)}`,
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+
+    //   if (response.ok) {
+    //     const responseResult = await response.json();
+    //     console.log(response)
+    //     console.log(responseResult);
+    //     console.log(response.headers.get("authorization"));
+    //     console.log(response.headers);
+    //   } else {
+    //     console.log("Login failed:", response.status);
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    fetch("https://shopziel.up.railway.app/api/users/signIn", {
+    headers: {
+      Authorization: `Basic ${window.btoa(`${data[0]}:${data[1]}`)}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      
+      const token = response.headers.get("authorization");
+      console.log(response)
+      console.log(token);
+      localStorage.setItem("token", token);
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+  };
+
   return (
     <Container h={"90vh"} px={"1rem"} py={"3rem"}>
       <VStack
@@ -36,7 +84,7 @@ const Login = () => {
           <InputLeftElement>
             <CiUser fontSize={"20px"} />
           </InputLeftElement>
-          <Input placeholder="Email" />
+          <Input placeholder="Email" className="data" />
         </InputGroup>
         <InputGroup>
           <InputLeftElement>
@@ -49,6 +97,7 @@ const Login = () => {
           <Input
             type={showPassword ? "Text" : "Password"}
             placeholder="Password"
+            className="data"
           />
           <InputRightElement onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
@@ -60,8 +109,9 @@ const Login = () => {
           color={"white"}
           colorScheme=""
           borderRadius={"3xl"}
+          onClick={signIn}
         >
-          Sign Up
+          Sign In
         </Button>
         <Button
           w={"full"}
@@ -75,7 +125,9 @@ const Login = () => {
             <Text>Sign in with Google</Text>
           </Center>
         </Button>
-        <Text fontSize={"md"}>New Member ? <Link to={"/signup"}>Sign Up</Link> </Text>
+        <Text fontSize={"md"}>
+          New Member ? <Link to={"/signup"}>Sign Up</Link>{" "}
+        </Text>
       </VStack>
     </Container>
   );
