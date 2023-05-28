@@ -13,13 +13,47 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GrFormSubtract } from "react-icons/gr";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbExchange, TbShoppingBag, TbTruckDelivery } from "react-icons/tb";
 import { RiFlashlightFill, RiRefund2Line } from "react-icons/ri";
+import ProductSlider from "../Components/Products/ProductSlider";
+import { useParams } from "react-router-dom";
 
 const Product = () => {
+
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
+
+  const fetchProductData = async () => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+    };
+
+    try {
+      const response = await fetch(
+        `https://shopziel.up.railway.app/api/products/${id}`,
+        requestOptions
+      );
+      let data = await response.json();
+
+      
+
+      if (!data.status) setProduct(data);
+    } catch (error) {
+      console.log('An error occurred:', error);
+    }
+  };
+
+
+
+
+  useEffect(() => {
+    fetchProductData();
+  });
+
   const [quantity, setQuantity] = useState(0);
 
   const decreaseQuantity = () => {
@@ -34,34 +68,39 @@ const Product = () => {
   };
 
   return (
+    <>
+    
     <Flex
       width={["100%", "90%", "70%"]}
       gap={"2rem"}
-      flexDirection={["column", "column", "row"]}
+      flexDirection={["column", "column", "column","row"]}
       m={"auto"}
       mt={"5"}
       p={"5"}
     >
       <VStack w={"full"}>
         <Img
+        w={"90%"}
           borderRadius={"3xl"}
-          src="https://ciseco-nextjs.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdetail1.38019683.jpg&w=640&q=75"
+          src={product.image}
+          border={"1px solid"}
+          borderColor={"gray.100"}
         />
       </VStack>
       <VStack px={"3"} w={"full"} alignItems={"left"} spacing={"4"}>
-        <Heading>Nike Shoe</Heading>
+        <Heading>{product.name}</Heading>
         <Flex gap={"4"}>
           <Text fontSize={"xl"} fontWeight={"500"}>
-            ₹ 2000
+            ₹ {product.price}
           </Text>
           <Divider color={"gray"} orientation="vertical" />
           <Flex alignItems={"center"} gap={"2"}>
             <StarIcon fontSize={"lg"} color={"gold"} />
             <Text fontWeight={"400"} fontSize={"md"}>
-              4.5
+              {product.rating}
             </Text>
             <Text as={"u"} fontWeight={"500"} justifySelf={"right"}>
-              139 Rating
+              {product.reviews ? product.reviews.length : 0} Rating
             </Text>
           </Flex>
         </Flex>
@@ -69,9 +108,7 @@ const Product = () => {
           Description:
         </Heading>
         <Text fontSize={"md"} textAlign={"justify"}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam,
-          nostrum eos tempore impedit illum rem nisi dicta accusamus dolor amet
-          dolorem alias nobis veritatis eveniet ipsam sequi itaque a natus.
+          {product.description}
         </Text>
         <HStack>
           <Flex
@@ -112,21 +149,6 @@ const Product = () => {
             <Text ml={"2"}>Add To Cart</Text>
           </Button>
         </HStack>
-        <Heading fontSize={"xl"} bg={"gray.100"} p={"2"} borderRadius={"lg"}>
-          Brand Details
-        </Heading>
-        <Text fontSize={"md"} textAlign={"justify"}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, sint
-          omnis cupiditate enim illum tempora ab dolorem esse! Hic nemo adipisci
-          dignissimos praesentium placeat deserunt mollitia laborum corporis
-          dolorem impedit? Voluptatum quia adipisci assumenda illo tempora totam
-          odit commodi eum reiciendis quo, pariatur error deserunt cupiditate
-          doloremque earum sit odio aliquam magni alias id quas aut. Labore
-          voluptatum aliquid beatae? Sequi asperiores labore doloribus inventore
-          dignissimos odit natus ad doloremque ex sit animi dolore repellendus
-          fugiat, beatae error ea dicta non architecto harum odio cum facere
-          provident. Sint, eum doloribus?
-        </Text>
         <Grid gridTemplateColumns={"repeat(2,1fr)"} gap={"3"}>
           <GridItem>
             <VStack
@@ -193,6 +215,23 @@ const Product = () => {
             </VStack>
           </GridItem>
         </Grid>
+        <Heading fontSize={"xl"} bg={"gray.100"} p={"2"} borderRadius={"lg"}>
+          Brand Details
+        </Heading>
+        
+        <Text fontSize={"md"} textAlign={"justify"}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, sint
+          omnis cupiditate enim illum tempora ab dolorem esse! Hic nemo adipisci
+          dignissimos praesentium placeat deserunt mollitia laborum corporis
+          dolorem impedit? Voluptatum quia adipisci assumenda illo tempora totam
+          odit commodi eum reiciendis quo, pariatur error deserunt cupiditate
+          doloremque earum sit odio aliquam magni alias id quas aut. Labore
+          voluptatum aliquid beatae? Sequi asperiores labore doloribus inventore
+          dignissimos odit natus ad doloremque ex sit animi dolore repellendus
+          fugiat, beatae error ea dicta non architecto harum odio cum facere
+          provident. Sint, eum doloribus?
+        </Text>
+        
 
         <Heading fontSize={"xl"} bg={"gray.100"} p={"2"} borderRadius={"lg"}>
           Review
@@ -218,6 +257,8 @@ const Product = () => {
         </VStack>
       </VStack>
     </Flex>
+    <ProductSlider title={"People Also buy"} data={[]} />
+    </>
   );
 };
 
