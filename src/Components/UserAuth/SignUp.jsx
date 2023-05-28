@@ -21,13 +21,12 @@ import { CiLock, CiUnlock, CiUser } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
-
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [image, setImage] = useState("");
 
-  let imageUrl;
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -51,48 +50,59 @@ const SignUp = () => {
         }
       );
       let result = await response.json();
-      imageUrl = result.url;
+      setImageUrl(result.url);
     } catch (err) {
       alert(err);
     }
   };
 
   const signUp = async () => {
+    let data = document.getElementsByClassName("data");
 
-    let data = document.getElementsByClassName("data").map(ele => {
+    data = Array.from(data).map((ele) => {
       return ele.value;
     });
     
-    if(data[3]!==data[4]){
+
+    if (data[3] !== data[4]) {
+      alert("Password not matched");
       return;
     }
     try {
-      const response = fetch("https://online-shopping-application-production.up.railway.app/api/users", {
-        method: "POST",
-        body: {
-            firstName:data[0],
+       await fetch(
+        "https://shopziel.up.railway.app/api/users/",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            firstName: data[0],
             lastName: data[1],
             profileImgUrl: imageUrl,
             email: data[2],
-            password : data[3],
-        },
+            password: data[3],
+            role: "ROLE_CUSTOMER"
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      );
 
-      });
+      
     } catch (err) {
       alert(err);
     }
   };
 
   return (
-    <Container h={"90vh"} px={"1rem"} py={"2rem"}>
+    <Container px={"1rem"} py={"2rem"}>
       <VStack
         boxShadow={"lg"}
-        spacing={"8"}
+        spacing={["6","7","8"]}
         px={"1rem"}
         py={"2rem"}
         borderRadius={"xl"}
       >
-        <Img src="https://i.ibb.co/HhmvPmF/Artistic-Textured-Ink-Brush-Stroke-Brand-Logo.png" />
+        <Img w={["80%","90%","100%"]} src="https://i.ibb.co/HhmvPmF/Artistic-Textured-Ink-Brush-Stroke-Brand-Logo.png" />
 
         <HStack
           justifyContent={"space-between"}
@@ -101,8 +111,8 @@ const SignUp = () => {
           gap={"3"}
         >
           <VStack w={["100%", "90%", "90%"]} gap={"4"}>
-            <Input placeholder="First Name" className="data"/>
-            <Input placeholder="Last Name" className="data"/>
+            <Input placeholder="First Name" className="data" />
+            <Input placeholder="Last Name" className="data" />
           </VStack>
           <Box>
             <Input
@@ -143,7 +153,11 @@ const SignUp = () => {
           <InputLeftElement>
             <CiLock fontSize={"20px"} />
           </InputLeftElement>
-          <Input type="password" placeholder="Confirm Password" className="Data" />
+          <Input
+            type="password"
+            placeholder="Confirm Password"
+            className="data"
+          />
         </InputGroup>
         <Button
           w={"full"}

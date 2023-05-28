@@ -2,7 +2,7 @@ import { HStack, Heading, Img, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
-const CategoryCard = () => {
+const CategoryCard = ({img,title}) => {
   return (
     <VStack
       borderRadius="2xl"
@@ -36,7 +36,7 @@ const CategoryCard = () => {
       </HStack>
 
       
-        <Heading fontSize={"3xl"} fontWeight={500}>{"Category Name"}</Heading>
+        <Heading fontSize={"3xl"} fontWeight={500}>{title}</Heading>
     
       <Text
         fontSize="md"

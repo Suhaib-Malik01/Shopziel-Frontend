@@ -31,10 +31,10 @@ export default function Carousel() {
         modules={[Navigation, Autoplay]}
         className="mySwiper"
       >
-        {cards.map((ele) => (
+        {cards.map((ele,index) => (
           <SwiperSlide>
             <Flex bg={"#e3ffe6"} w={"full"} h={"full"}>
-              <CarouselCard />
+              <CarouselCard key={index}/>
             </Flex>
           </SwiperSlide>
         ))}
