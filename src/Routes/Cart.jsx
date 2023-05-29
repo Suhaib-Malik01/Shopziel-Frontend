@@ -6,31 +6,20 @@ import {
   Flex,
   HStack,
   Heading,
-  IconButton,
-  Img,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import { GrFormSubtract } from "react-icons/gr";
+import React from "react";
+
+import EmptyCart from "../Components/Cart/EmptyCart";
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState(0);
-
-  const decreaseQuantity = () => {
-    if (quantity <= 0) {
-      return;
-    }
-    setQuantity(quantity - 1);
-  };
-
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
   return (
-    <Container minW={["100%", "90%", "80%","90%", "70%"]} minH={"100vh"} px={"5"}>
+    <Container
+      minW={["100%", "90%", "80%", "90%", "70%"]}
+      minH={"100vh"}
+      px={"5"}
+    >
       <Box my={"3rem"}>
         <Heading fontWeight={"500"}>Shopping Cart</Heading>
       </Box>
@@ -43,7 +32,6 @@ const Cart = () => {
       >
         <VStack
           rowGap={"5"}
-          
           overflowY={"auto"}
           maxH={"75vh"}
           css={{
@@ -58,76 +46,8 @@ const Cart = () => {
             },
           }}
         >
-          <Flex gap={"5"} alignItems={["center", "center", "normal"]}>
-            <Img
-              w={["25%"]}
-              h={["40%"]}
-              borderRadius={"xl"}
-              src="https://ciseco-nextjs.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdetail1.38019683.jpg&w=640&q=75"
-            />
-            <VStack
-              w={"full"}
-              justifyContent={"space-between"}
-              alignItems={"left"}
-              px={"2"}
-              py={"4"}
-            >
-              <Flex alignItems={"center"} justifyContent={"space-between"}>
-                <Flex
-                  flexDirection={["column", "column", "column", "row"]}
-                  gap={"2"}
-                >
-                  <Box>
-                    <Text fontSize={["md", "md", "lg"]} fontWeight={"700"}>
-                      Nike Air Pro Max
-                    </Text>
-                    <Text fontSize={["sm", "md", "md"]}>Size | Color</Text>
-                  </Box>
-                  <Flex
-                    alignItems={"center"}
-                    gap={"3"}
-                    borderRadius={"3xl"}
-                    h={"3rem"}
-                    px={["0", "0", "0", "2"]}
-                  >
-                    <IconButton
-                      icon={<GrFormSubtract />}
-                      border={"1px solid"}
-                      borderColor={"blackAlpha.400"}
-                      borderRadius={"full"}
-                      size={"sm"}
-                      onClick={decreaseQuantity}
-                    />
-                    <Text fontSize={"md"}>{quantity}</Text>
-                    <IconButton
-                      icon={<AiOutlinePlus />}
-                      border={"1px solid"}
-                      borderColor={"blackAlpha.400"}
-                      borderRadius={"full"}
-                      size={"sm"}
-                      onClick={increaseQuantity}
-                    />
-                  </Flex>
-                </Flex>
-                <Text fontSize={["md", "lg", "xl"]}> $ 2000</Text>
-              </Flex>
-
-              <Flex justifyContent={"space-between"} alignItems={"center"}>
-                <Text
-                  px={"2"}
-                  borderRadius={"2xl"}
-                  border={"1px"}
-                  borderColor={"blackAlpha.300"}
-                >
-                  {true ? "In Stock" : "Out of Stock"}
-                </Text>
-                <Text color={"blue.500"} fontSize={"lg"} fontWeight={"700"}>
-                  Remove
-                </Text>
-              </Flex>
-            </VStack>
-          </Flex>
-          <Divider color={"gray.200"} />
+          <EmptyCart />
+          
         </VStack>
 
         <Divider orientation="vertical" />

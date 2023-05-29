@@ -1,8 +1,7 @@
 import { Button, Flex, Heading, Img, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import { BsSearch } from "react-icons/bs";
-import animationData from "../../AnimatedAssets/Clothes_store.json";
-import { Player } from "@lottiefiles/react-lottie-player";
+
 
 const CarouselCard = () => {
   return (

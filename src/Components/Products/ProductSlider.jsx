@@ -51,7 +51,6 @@ const ProductSlider = ({ title, subTitle, data }) => {
       <Flex width={["95%", "90%", "80%"]} height="auto" alignItems="center">
         <Swiper
           slidesPerView={1.5}
-          loop
           spaceBetween={15}
           ref={swiper}
           breakpoints={{
@@ -71,15 +70,14 @@ const ProductSlider = ({ title, subTitle, data }) => {
             },
           }}
         >
-          {data.map((ele,index) => (
-            <SwiperSlide>
+          {data.map((ele, index) => (
+            <SwiperSlide key={index}>
               <ProductCard
                 id={ele.productId}
                 title={ele.name}
                 price={ele.price}
                 description={ele.description}
                 img={ele.image}
-                key={index}
                 rating={ele.rating}
               />
             </SwiperSlide>
