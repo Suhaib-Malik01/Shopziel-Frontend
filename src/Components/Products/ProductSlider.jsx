@@ -48,7 +48,7 @@ const ProductSlider = ({ title, subTitle, data }) => {
           />
         </HStack>
       </Flex>
-      <Flex width={["95%", "90%", "80%"]} height="auto" alignItems="center">
+      <Flex width={["95%", "90%", "78%"]} height="auto" alignItems="center">
         <Swiper
           slidesPerView={1.5}
           spaceBetween={15}

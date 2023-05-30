@@ -26,7 +26,11 @@ const CategoryBox = ({ arr }) => {
       >
         {arr.map((ele) => (
           <GridItem key={ele.name}>
-            <CategoryCard img={ele.image} title={ele.name} />
+            <CategoryCard
+              id={ele.categoryId}
+              img={ele.image}
+              title={ele.name}
+            />
           </GridItem>
         ))}
       </Grid>

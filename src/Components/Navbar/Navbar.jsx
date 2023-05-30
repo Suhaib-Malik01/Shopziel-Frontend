@@ -56,42 +56,39 @@ export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
-  const [user,setUser] = useState({});
-
-  var myHeaders = new Headers();
-  myHeaders.append(
-    "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaG9wemllbCIsInN1YiI6IkpXVCBUb2tlbiIsInVzZXJuYW1lIjoic3VoYWliNEBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9DVVNUT01FUiIsImlhdCI6MTY4NTMzMjMwNywiZXhwIjoxNjg1MzYyMzA3fQ.C3NqhQ1QUJsTf4cNEDElfQX9ZlCIH6KJDia2LGzpb-g"
-  );
+  const [user, setUser] = useState({});
 
   const getUserData = async () => {
-    const headers = new Headers();
+    const myHeaders = new Headers();
 
-    headers.append("Auhtorization", `Bearer ${localStorage.getItem("token")}`);
+    myHeaders.append(
+      "Authorization",
+      `Bearer ${localStorage.getItem("token")}`
+    );
 
     const requestOptions = {
       method: "GET",
       headers: myHeaders,
-
       redirect: "follow",
     };
     try {
-     let response = await fetch("https://shopziel.up.railway.app/api/customers/", requestOptions);
+      let response = await fetch(
+        "https://shopziel.up.railway.app/api/customers/",
+        requestOptions
+      );
 
-     let data = await response.json();
-     console.log(data);
+      let data = await response.json();
+      console.log(data);
 
-     setUser(data);
+      setUser(data);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-
     getUserData();
-
-  },[]);
+  }, []);
 
   return (
     <>
@@ -216,7 +213,7 @@ export default function Navbar() {
               <MenuList>
                 {localStorage.getItem("token") ? (
                   <MenuItem>
-                    <UserInfo userData={user}/>
+                    <UserInfo userData={user} />
                   </MenuItem>
                 ) : null}
                 <MenuItem>Orders</MenuItem>

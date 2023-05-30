@@ -23,6 +23,8 @@ import { useParams } from "react-router-dom";
 
 const Product = () => {
 
+  const [check,setCheck] = useState(false);
+
   const { id } = useParams();
   const [product, setProduct] = useState({});
 
@@ -215,11 +217,11 @@ const Product = () => {
             </VStack>
           </GridItem>
         </Grid>
-        <Heading fontSize={"xl"} bg={"gray.100"} p={"2"} borderRadius={"lg"}>
+        <Heading onClick={() => setCheck(!check)} fontSize={"xl"} bg={"gray.100"} p={"2"} borderRadius={"lg"}>
           Brand Details
         </Heading>
         
-        <Text fontSize={"md"} textAlign={"justify"}>
+        {check ? <Text fontSize={"md"} textAlign={"justify"}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, sint
           omnis cupiditate enim illum tempora ab dolorem esse! Hic nemo adipisci
           dignissimos praesentium placeat deserunt mollitia laborum corporis
@@ -230,7 +232,7 @@ const Product = () => {
           dignissimos odit natus ad doloremque ex sit animi dolore repellendus
           fugiat, beatae error ea dicta non architecto harum odio cum facere
           provident. Sint, eum doloribus?
-        </Text>
+        </Text> : null}
         
 
         <Heading fontSize={"xl"} bg={"gray.100"} p={"2"} borderRadius={"lg"}>
