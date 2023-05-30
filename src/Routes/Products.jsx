@@ -4,7 +4,7 @@ import ProductCard from "../Components/Products/ProductCard";
 import { useParams } from "react-router-dom";
 
 const Products = () => {
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState({});
   const { id } = useParams();
 
   const getCategoryProducts = async () => {
@@ -35,7 +35,7 @@ const Products = () => {
 
   useEffect(() => {
     getCategoryProducts();
-  },[])
+  }, []);
 
   return (
     <Container minW={["100%", "90%", "70%"]} my={"5"}>
@@ -44,6 +44,8 @@ const Products = () => {
       <Divider my={"10"} />
 
       <Grid
+      
+        justifyContent={"center"}
         templateColumns={[
           "1fr",
           "repeat(1, 1fr)",
@@ -52,11 +54,24 @@ const Products = () => {
           "repeat(3,1fr)",
         ]}
         w="full"
-        gap="2rem"
+       gap={"5"}
       >
-        <GridItem>
-          <ProductCard />
-        </GridItem>
+        {category.products
+          ? category.products.map((ele) => {
+              return (
+                <GridItem>
+                  <ProductCard
+                    id={ele.productId}
+                    title={ele.name}
+                    img={ele.image}
+                    description={ele.description}
+                    price={ele.price}
+                    rating={ele.rating}
+                  />
+                </GridItem>
+              );
+            })
+          : null}
       </Grid>
     </Container>
   );

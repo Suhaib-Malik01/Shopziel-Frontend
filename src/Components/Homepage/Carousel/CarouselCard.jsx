@@ -7,7 +7,7 @@ const CarouselCard = () => {
   return (
     <Flex
       w={["95%", "90%", "78%"]}
-      h={"full"}
+      
       py={"2rem"}
       alignItems={"center"}
       justifyContent={"space-between"}

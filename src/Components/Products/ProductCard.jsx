@@ -27,9 +27,12 @@ const ProductCard = ({ id, title, price, description, img, rating }) => {
       minH={"400px"}
       maxW={"300px"}
       onClick={() => navigate(`/product/${id}`)}
-      _hover={{cursor: "pointer", "& .productTitle" : {
-        color: "blue.500"
-      }}}
+      _hover={{
+        cursor: "pointer",
+        "& .productTitle": {
+          color: "blue.500",
+        },
+      }}
     >
       <CardBody>
         <Box height="200px" width="100%" position="relative">
@@ -47,10 +50,14 @@ const ProductCard = ({ id, title, price, description, img, rating }) => {
         </Box>
 
         <Stack spacing="2" mt={"5"} textAlign={"justify"}>
-          <Heading size="20px" fontWeight={"500"} className="productTitle">
+          <Heading
+            size={["16px", "18px", "20px"]}
+            fontWeight={"500"}
+            className="productTitle"
+          >
             {String(title).substring(0, 20)}
           </Heading>
-          <Text fontSize={"md"}>
+          <Text fontSize={["sm", "md", "md"]}>
             {String(description).substring(0, 70) + "..."}
           </Text>
         </Stack>
