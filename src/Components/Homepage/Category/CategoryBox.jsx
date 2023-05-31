@@ -30,6 +30,8 @@ const CategoryBox = ({ arr }) => {
               id={ele.categoryId}
               img={ele.image}
               title={ele.name}
+              quantity={ele.products.length}
+              ele = {ele}
             />
           </GridItem>
         ))}

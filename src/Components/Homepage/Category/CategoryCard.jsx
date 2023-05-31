@@ -1,9 +1,9 @@
-import { Circle, HStack, Heading, Img, Text, VStack } from "@chakra-ui/react";
+import { HStack, Heading, Img, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-const CategoryCard = ({ id, img, title }) => {
+const CategoryCard = ({ id, img, title, quantity,ele }) => {
   const navigate = useNavigate();
 
   return (
@@ -27,14 +27,23 @@ const CategoryCard = ({ id, img, title }) => {
         },
         cursor: "pointer",
       }}
-      onClick={() => navigate(`/products/${id}`)}
+      onClick={() =>
+        sessionStorage.getItem("token")
+          ? navigate(`/products/`, { state: ele })
+          : navigate("/Signin")
+      }
     >
       <HStack justifyContent="space-between">
-        
-        <Img h="25" borderRadius="50%" bg="blackAlpha.100" src={img} />
-        
-        
-        <Text fontWeight={500}>{"55 Products"}</Text>
+        <Img
+          objectFit={"cover"}
+          maxW={"70px"}
+          h={"70px"}
+          borderRadius="50%"
+          bg="blackAlpha.100"
+          src={img}
+        />
+
+        <Text fontWeight={500}>{`${quantity} Products`}</Text>
       </HStack>
 
       <Heading fontSize={"3xl"} fontWeight={500}>

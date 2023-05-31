@@ -24,14 +24,13 @@ const CartMenu = () => {
         <MenuGroup
           alignItems={"flex-start"}
           fontSize={"2xl"}
-        
           maxW={"100px"}
           title="Cart"
         >
-          <MenuItem  minH={"100%"} maxW={"400px"}>
+          <MenuItem minH={"100%"} maxW={"400px"}>
             <CartProduct />
           </MenuItem>
-          <MenuItem  minH={"100%"} maxW={"400px"}>
+          <MenuItem minH={"100%"} maxW={"400px"}>
             <CartProduct />
           </MenuItem>
           <MenuItem minH={"100%"} maxW={"400px"}>
@@ -50,7 +49,7 @@ const CartMenu = () => {
               View Cart
             </Button>
             <Button
-              bg={"#0f172a"}
+              bg={"buttonColor"}
               color={"white"}
               colorScheme=""
               borderRadius={"3xl"}

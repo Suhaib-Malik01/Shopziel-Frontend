@@ -24,8 +24,6 @@ const ProductCard = ({ id, title, price, description, img, rating }) => {
 
   return (
     <Card
-      minH={"400px"}
-      maxW={"300px"}
       onClick={() => navigate(`/product/${id}`)}
       _hover={{
         cursor: "pointer",
@@ -58,7 +56,7 @@ const ProductCard = ({ id, title, price, description, img, rating }) => {
             {String(title).substring(0, 20)}
           </Heading>
           <Text fontSize={["sm", "md", "md"]}>
-            {String(description).substring(0, 70) + "..."}
+            {String(description).split(" ").slice(0, 10).join(" ") + "..."}
           </Text>
         </Stack>
         <Flex alignItems={"center"} mt={"3"} gap={1.5}>
@@ -78,10 +76,9 @@ const ProductCard = ({ id, title, price, description, img, rating }) => {
           <Button
             size={["sm", "md"]}
             borderRadius={"2rem"}
-            bg={"#0f172a"}
-            colorScheme=""
+            bg={"buttonColor"}
+            color="white"
             _hover={{ boxShadow: "lg" }}
-            color={"white"}
           >
             <BsBag /> <Text ml={"2"}>Add To Cart</Text>
           </Button>

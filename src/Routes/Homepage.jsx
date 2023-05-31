@@ -53,6 +53,8 @@ const Homepage = () => {
     }
   };
 
+
+
   return (
     <>
       <Carousel />
@@ -70,7 +72,10 @@ const Homepage = () => {
 
       <Divider w={"80%"} m={"auto"} my={"4rem"} />
 
-      <CategoryBox arr={categories ? categories : []} />
+      <CategoryBox
+        arr={categories ? categories : []}
+        
+      />
 
       <ProductSlider
         data={productArr ? productArr : []}

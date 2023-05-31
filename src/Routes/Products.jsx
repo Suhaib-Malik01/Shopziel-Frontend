@@ -1,41 +1,12 @@
 import { Container, Divider, Grid, GridItem, Heading } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProductCard from "../Components/Products/ProductCard";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Products = () => {
-  const [category, setCategory] = useState({});
-  const { id } = useParams();
+  const location = useLocation();
 
-  const getCategoryProducts = async () => {
-    const headers = new Headers();
-
-    headers.append("Auhtorization", `Bearer ${localStorage.getItem("token")}`);
-
-    const requestOptions = {
-      method: "GET",
-      headers: headers,
-
-      redirect: "follow",
-    };
-    try {
-      let response = await fetch(
-        `https://shopziel.up.railway.app/api/category/${id}`,
-        requestOptions
-      );
-
-      let data = await response.json();
-
-      console.log(data);
-      setCategory(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getCategoryProducts();
-  }, []);
+  const { products } = location.state;
 
   return (
     <Container minW={["100%", "90%", "70%"]} my={"5"}>
@@ -44,22 +15,20 @@ const Products = () => {
       <Divider my={"10"} />
 
       <Grid
-      
-        justifyContent={"center"}
         templateColumns={[
           "1fr",
-          "repeat(1, 1fr)",
-          "repeat(1, 1fr)",
-          "repeat(2,1fr)",
-          "repeat(3,1fr)",
+          "repeat(2, 1fr)",
+          "repeat(2, 1fr)",
+          "repeat(4,1fr)",
+          "repeat(4,1fr)",
         ]}
         w="full"
-       gap={"5"}
+        gap={"5"}
       >
-        {category.products
-          ? category.products.map((ele) => {
+        {products
+          ? products.map((ele) => {
               return (
-                <GridItem>
+                <GridItem m={"auto"}>
                   <ProductCard
                     id={ele.productId}
                     title={ele.name}

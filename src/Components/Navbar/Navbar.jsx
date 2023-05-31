@@ -17,8 +17,6 @@ import {
   InputGroup,
   Heading,
   InputRightElement,
-  Avatar,
-  Text,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
@@ -32,7 +30,7 @@ import CartMenu from "./CartMenu";
 
 import { HiOutlineUser } from "react-icons/hi";
 import UserInfo from "./UserInfo";
-import { smartObject } from "@cloudinary/url-gen/actions/psdTools";
+
 import { useEffect, useState } from "react";
 
 const Links = ["New Arrivals", "Sale"];
@@ -63,7 +61,7 @@ export default function Navbar() {
 
     myHeaders.append(
       "Authorization",
-      `Bearer ${localStorage.getItem("token")}`
+      `Bearer ${sessionStorage.getItem("token")}`
     );
 
     const requestOptions = {
@@ -181,7 +179,7 @@ export default function Navbar() {
                 <MenuItem onClick={() => navigate("/cart")}>Cart</MenuItem>
                 <MenuItem>Orders</MenuItem>
                 <MenuDivider />
-                {localStorage.getItem("token") ? (
+                {sessionStorage.getItem("token") ? (
                   <MenuItem>Sign out</MenuItem>
                 ) : (
                   <RouteLink to={"/signin"}>
@@ -211,7 +209,7 @@ export default function Navbar() {
                 <HiOutlineUser size={"25px"} />
               </MenuButton>
               <MenuList>
-                {localStorage.getItem("token") ? (
+                {sessionStorage.getItem("token") ? (
                   <MenuItem>
                     <UserInfo userData={user} />
                   </MenuItem>
@@ -219,13 +217,16 @@ export default function Navbar() {
                 <MenuItem>Orders</MenuItem>
                 <MenuItem>Coupons</MenuItem>
                 <MenuDivider />
-                {localStorage.getItem("token") ? (
-                  <MenuItem onClick={() => localStorage.removeItem("token")}>
+                {sessionStorage.getItem("token") ? (
+                  <MenuItem onClick={() => {
+                    sessionStorage.removeItem("token");
+                    navigate("/");
+                  }}>
                     Sign out
                   </MenuItem>
                 ) : (
                   <RouteLink to={"/signin"}>
-                    <MenuItem>Sign In / Sign Up</MenuItem>
+                    <MenuItem><Button colorScheme="green"  borderRadius={"3xl"} variant={"outline"}>Sign In</Button></MenuItem>
                   </RouteLink>
                 )}
               </MenuList>

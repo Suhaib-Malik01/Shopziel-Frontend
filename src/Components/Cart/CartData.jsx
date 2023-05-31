@@ -69,12 +69,12 @@ const CartData = () => {
           <Divider />
           <Button
             borderRadius={"3xl"}
-            _hover={{ bg: "#0f172a", boxShadow: "lg" }}
+            _hover={{ bg: "buttonColor", boxShadow: "lg" }}
             fontWeight={"400"}
             fontSize={"xl"}
             h={"3rem"}
             color={"white"}
-            bg={"#0f172a"}
+            bg={"buttonColor"}
           >
             Proceed to Checkout
           </Button>
