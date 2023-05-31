@@ -1,5 +1,14 @@
-import { Container, Divider, Grid, GridItem, Heading } from "@chakra-ui/react";
-import React from "react";
+import {
+  Container,
+  Divider,
+  Flex,
+  Grid,
+  GridItem,
+  HStack,
+  Heading,
+  Select,
+} from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import ProductCard from "../Components/Products/ProductCard";
 import { useLocation } from "react-router-dom";
 
@@ -8,15 +17,25 @@ const Products = () => {
 
   const { products } = location.state;
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   return (
     <Container minW={["100%", "90%", "70%"]} my={"5"}>
       <Heading fontWeight={"500"}>Products</Heading>
 
       <Divider my={"10"} />
 
+      <HStack gap={"20"} justifyContent={"right"}>
+        <Select borderRadius={"3xl"} placeholder="Sort By"></Select>
+      </HStack>
+
       <Grid
+      mt={"5"}
+        px={["5", "5", "0"]}
         templateColumns={[
-          "1fr",
+          "repeat(1,1fr)",
           "repeat(2, 1fr)",
           "repeat(2, 1fr)",
           "repeat(4,1fr)",

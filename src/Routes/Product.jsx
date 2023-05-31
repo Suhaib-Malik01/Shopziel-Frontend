@@ -19,37 +19,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { TbExchange, TbShoppingBag, TbTruckDelivery } from "react-icons/tb";
 import { RiFlashlightFill, RiRefund2Line } from "react-icons/ri";
 import ProductSlider from "../Components/Products/ProductSlider";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const Product = () => {
   const [check, setCheck] = useState(false);
 
-  const { id } = useParams();
-  const [product, setProduct] = useState({});
-
-  const fetchProductData = async () => {
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    try {
-      const response = await fetch(
-        `https://shopziel.up.railway.app/api/products/${id}`,
-        requestOptions
-      );
-      let data = await response.json();
-
-      if (!data.status) setProduct(data);
-    } catch (error) {
-      console.log("An error occurred:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProductData();
-  });
-
+  
+  const product = useLocation().state;
+ 
   const [quantity, setQuantity] = useState(0);
 
   const decreaseQuantity = () => {
@@ -62,6 +39,10 @@ const Product = () => {
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[product])
 
   return (
     <>
@@ -77,7 +58,7 @@ const Product = () => {
           <Img
             w={"90%"}
             borderRadius={"3xl"}
-            src={product.image}
+            src={product.img}
             border={"1px solid"}
             borderColor={"gray.100"}
           />

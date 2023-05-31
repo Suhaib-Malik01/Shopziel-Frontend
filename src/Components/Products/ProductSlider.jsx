@@ -1,4 +1,12 @@
-import { Flex, HStack, Heading, IconButton, VStack } from "@chakra-ui/react";
+import {
+  Flex,
+  HStack,
+  Heading,
+  IconButton,
+  Skeleton,
+  SkeletonText,
+  VStack,
+} from "@chakra-ui/react";
 import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -48,7 +56,8 @@ const ProductSlider = ({ title, subTitle, data }) => {
           />
         </HStack>
       </Flex>
-      <Flex width={["95%", "90%", "78%"]} height="auto" alignItems="center">
+
+      <Flex w={["95%", "90%", "78%"]} height="auto" alignItems="center">
         <Swiper
           slidesPerView={1.5}
           spaceBetween={15}
@@ -79,6 +88,7 @@ const ProductSlider = ({ title, subTitle, data }) => {
                 description={ele.description}
                 img={ele.image}
                 rating={ele.rating}
+                ele={ele}
               />
             </SwiperSlide>
           ))}

@@ -19,12 +19,15 @@ import { BsBag } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-const ProductCard = ({ id, title, price, description, img, rating }) => {
+const ProductCard = (props) => {
   const navigate = useNavigate();
+
+  const { id, title, price, description, img, rating } = props;
 
   return (
     <Card
-      onClick={() => navigate(`/product/${id}`)}
+      
+      onClick={() => navigate(`/product/`, { state: props })}
       _hover={{
         cursor: "pointer",
         "& .productTitle": {
