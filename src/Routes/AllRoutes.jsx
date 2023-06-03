@@ -9,6 +9,8 @@ import Footer from "../Components/Footer";
 import Homepage from "./Homepage";
 import Product from "./Product";
 import Products from "./Products";
+import ProductSearch from "./ProductSearch";
+import Coupons from "./Coupons";
 
 const AllRoutes = () => {
   return (
@@ -21,6 +23,8 @@ const AllRoutes = () => {
         <Route path="/product/" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/products/" element={<Products />} />
+        <Route path="/products/search/:keyword" element={<ProductSearch />} />
+        <Route path="/coupons" element={<Coupons />} />
       </Routes>
       <Footer />
     </BrowserRouter>

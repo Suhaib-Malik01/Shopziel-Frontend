@@ -31,11 +31,10 @@ const Product = () => {
 
   const product = useLocation().state;
 
-
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const decreaseQuantity = () => {
-    if (quantity <= 0) {
+    if (quantity <= 1) {
       return;
     }
     setQuantity(quantity - 1);
@@ -45,9 +44,39 @@ const Product = () => {
     setQuantity(quantity + 1);
   };
 
+  const addToCart = async () => {
+    const myHeaders = new Headers();
+
+    myHeaders.append(
+      "Authorization",
+      `Bearer ${sessionStorage.getItem("token")}`
+    );
+
+    myHeaders.append("Content-Type", "application/json");
+
+    try {
+      const response = await fetch(
+        "https://shopziel.up.railway.app/api/customers/cart/add",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            productId: product.id,
+            quantity: quantity,
+          }),
+          headers: myHeaders,
+        }
+      );
+      if (response.ok) {
+        alert("Product added to cart");
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [product]);
+  });
 
   return (
     <>
@@ -69,7 +98,7 @@ const Product = () => {
           />
         </VStack>
         <VStack px={"3"} w={"full"} alignItems={"left"} spacing={"4"}>
-          <Heading>{product.name}</Heading>
+          <Heading>{product.title}</Heading>
           <Flex gap={"4"}>
             <Text fontSize={"xl"} fontWeight={"500"}>
               ₹ {product.price}
@@ -124,6 +153,7 @@ const Product = () => {
               bg={"buttonColor"}
               fontSize={"lg"}
               color={"white"}
+              onClick={addToCart}
               _hover={{ boxShadow: "lg" }}
             >
               <TbShoppingBag fontSize={"20px"} />{" "}
