@@ -25,6 +25,7 @@ import {
   AiOutlineHeart,
   AiOutlineShop,
   AiOutlineSearch,
+  AiOutlineShoppingCart,
 } from "react-icons/ai";
 import CartMenu from "./CartMenu";
 
@@ -55,6 +56,12 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
+
+  const handleSearchInput = (e) => {
+    if (e.keyCode === 13) {
+      navigate(`/products/search/${e.target.value}`);
+    }
+  };
 
   const getUserData = async () => {
     const myHeaders = new Headers();
@@ -133,6 +140,7 @@ export default function Navbar() {
                   px={"5"}
                   placeholder="Search for Products"
                   w={["100%", "100%", "100%"]}
+                  onKeyDown={handleSearchInput}
                 />
                 <InputRightElement
                   px={"2"}
@@ -222,7 +230,7 @@ export default function Navbar() {
                   </MenuItem>
                 ) : null}
                 <MenuItem>Orders</MenuItem>
-                <MenuItem>Coupons</MenuItem>
+                <MenuItem onClick={() => navigate("/coupons")}>Coupons</MenuItem>
                 <MenuDivider />
                 {sessionStorage.getItem("token") ? (
                   <MenuItem
@@ -248,7 +256,10 @@ export default function Navbar() {
                 )}
               </MenuList>
             </Menu>
-            <CartMenu />
+            <AiOutlineShoppingCart
+              onClick={() => navigate("/cart")}
+              size={"25px"}
+            />
             <AiOutlineHeart size={"25px"} />
           </Flex>
         </Flex>
