@@ -2,8 +2,10 @@ import { Box, Flex, IconButton, Img, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GrFormSubtract } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 
-const CartProduct = () => {
+const CartProduct = ({ orderItemData, fetchCartData }) => {
+  
   const [quantity, setQuantity] = useState(0);
 
   const decreaseQuantity = () => {
@@ -17,13 +19,39 @@ const CartProduct = () => {
     setQuantity(quantity + 1);
   };
 
+  const removeOrderItem = async () => {
+    const myHeaders = new Headers();
+
+    myHeaders.append(
+      "Authorization",
+      `Bearer ${sessionStorage.getItem("token")}`
+    );
+
+    try {
+      const response = await fetch(
+        `https://shopziel.up.railway.app/api/customers/cart/${orderItemData.itemId}`,
+        {
+          method: "DELETE",
+          headers: myHeaders,
+        }
+      );
+
+      if (response.ok) {
+        fetchCartData();
+        alert("Product deleted");
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   return (
-    <Flex gap={"5"} alignItems={["center", "center", "normal"]}>
+    <Flex w={"full"} gap={"5"} alignItems={["center", "center", "normal"]}>
       <Img
         w={["25%"]}
         h={["40%"]}
         borderRadius={"xl"}
-        src="https://ciseco-nextjs.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdetail1.38019683.jpg&w=640&q=75"
+        src={orderItemData ? orderItemData.product.image : null}
       />
       <VStack
         w={"full"}
@@ -33,10 +61,13 @@ const CartProduct = () => {
         py={"4"}
       >
         <Flex alignItems={"center"} justifyContent={"space-between"}>
-          <Flex flexDirection={["column", "column", "column", "column"]} gap={"2"}>
+          <Flex
+            flexDirection={["column", "column", "column", "column"]}
+            gap={"2"}
+          >
             <Box>
               <Text fontSize={["md", "md", "lg"]} fontWeight={"700"}>
-                Nike Air Pro Max
+                {orderItemData ? orderItemData.product.name : null}
               </Text>
               <Text fontSize={["sm", "md", "md"]}>Size | Color</Text>
             </Box>
@@ -55,7 +86,9 @@ const CartProduct = () => {
                 size={"sm"}
                 onClick={decreaseQuantity}
               />
-              <Text fontSize={"md"}>{quantity}</Text>
+              <Text fontSize={"md"}>
+                {orderItemData ? orderItemData.quantity : null}
+              </Text>
               <IconButton
                 icon={<AiOutlinePlus />}
                 border={"1px solid"}
@@ -66,7 +99,10 @@ const CartProduct = () => {
               />
             </Flex>
           </Flex>
-          <Text fontSize={["md", "lg", "xl"]}> $ 2000</Text>
+          <Text fontSize={["md", "lg", "xl"]}>
+            {" "}
+            ₹ {orderItemData ? orderItemData.product.price : null}
+          </Text>
         </Flex>
 
         <Flex justifyContent={"space-between"} alignItems={"center"}>
@@ -78,7 +114,13 @@ const CartProduct = () => {
           >
             {true ? "In Stock" : "Out of Stock"}
           </Text>
-          <Text color={"blue.500"} fontSize={"lg"} fontWeight={"700"}>
+          <Text
+            onClick={removeOrderItem}
+            color={"blue.500"}
+            fontSize={"lg"}
+            fontWeight={"700"}
+            cursor={"pointer"}
+          >
             Remove
           </Text>
         </Flex>

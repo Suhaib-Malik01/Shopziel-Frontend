@@ -21,7 +21,7 @@ const CategoryCard = ({ id, img, title, quantity,ele }) => {
       alignItems={"left"}
       transition={"all 0.2s"}
       _hover={{
-        boxShadow: "base",
+        boxShadow: "lg",
         "& .categoryCollection": {
           color: "blue.500",
         },

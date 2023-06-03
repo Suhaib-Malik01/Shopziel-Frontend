@@ -1,12 +1,4 @@
-import {
-  Flex,
-  HStack,
-  Heading,
-  IconButton,
-  Skeleton,
-  SkeletonText,
-  VStack,
-} from "@chakra-ui/react";
+import { Flex, HStack, Heading, IconButton, VStack } from "@chakra-ui/react";
 import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";

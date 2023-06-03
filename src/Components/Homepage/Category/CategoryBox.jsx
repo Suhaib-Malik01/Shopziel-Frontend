@@ -3,12 +3,13 @@ import React from "react";
 import CategoryCard from "./CategoryCard";
 
 const CategoryBox = ({ arr }) => {
+  
   return (
     <VStack
       w={["100%", "78%"]}
       m="auto"
       p={["10", "16", "28"]}
-      bg={"gray.100"}
+      bg={"blackAlpha.50"}
       borderRadius={"3xl"}
       spacing={"12"}
     >

@@ -75,12 +75,12 @@ export default function Navbar() {
         requestOptions
       );
 
-      let data = await response.json();
-      console.log(data);
-
-      setUser(data);
+      if (response.ok) {
+        let data = await response.json();
+        setUser(data);
+      }
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   };
 
@@ -180,7 +180,14 @@ export default function Navbar() {
                 <MenuItem>Orders</MenuItem>
                 <MenuDivider />
                 {sessionStorage.getItem("token") ? (
-                  <MenuItem>Sign out</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      sessionStorage.removeItem("token");
+                      navigate("/");
+                    }}
+                  >
+                    Sign out
+                  </MenuItem>
                 ) : (
                   <RouteLink to={"/signin"}>
                     <MenuItem>Sign In / Sign Up</MenuItem>
@@ -218,15 +225,25 @@ export default function Navbar() {
                 <MenuItem>Coupons</MenuItem>
                 <MenuDivider />
                 {sessionStorage.getItem("token") ? (
-                  <MenuItem onClick={() => {
-                    sessionStorage.removeItem("token");
-                    navigate("/");
-                  }}>
+                  <MenuItem
+                    onClick={() => {
+                      sessionStorage.removeItem("token");
+                      navigate("/");
+                    }}
+                  >
                     Sign out
                   </MenuItem>
                 ) : (
                   <RouteLink to={"/signin"}>
-                    <MenuItem><Button colorScheme="green"  borderRadius={"3xl"} variant={"outline"}>Sign In</Button></MenuItem>
+                    <MenuItem>
+                      <Button
+                        colorScheme="green"
+                        borderRadius={"3xl"}
+                        variant={"outline"}
+                      >
+                        Sign In
+                      </Button>
+                    </MenuItem>
                   </RouteLink>
                 )}
               </MenuList>

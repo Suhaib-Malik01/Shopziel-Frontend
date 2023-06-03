@@ -4,7 +4,10 @@ import React from "react";
 const EmptyCart = () => {
   return (
     <VStack>
-      <Img src="https://i.ibb.co/d2gKYRH/preview.png" />
+      <Img
+        src="https://i.ibb.co/d2gKYRH/preview.png"
+       
+      />
       <Heading>Cart is Empty</Heading>
     </VStack>
   );

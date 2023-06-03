@@ -25,7 +25,7 @@ const Homepage = () => {
 
       if (!data.status) setProductArr(data);
     } catch (error) {
-      console.log("An error occurred:", error);
+      alert("An error occurred:", error);
     }
   };
 
@@ -49,11 +49,9 @@ const Homepage = () => {
 
       if (!data.status) setCategories(data);
     } catch (error) {
-      console.log("An error occurred:", error);
+      alert("An error occurred:", error);
     }
   };
-
-
 
   return (
     <>
@@ -72,10 +70,7 @@ const Homepage = () => {
 
       <Divider w={"80%"} m={"auto"} my={"4rem"} />
 
-      <CategoryBox
-        arr={categories ? categories : []}
-        
-      />
+      <CategoryBox arr={categories ? categories : []} />
 
       <ProductSlider
         data={productArr ? productArr : []}

@@ -31,11 +31,10 @@ const SignUp = () => {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
 
-    console.log(imageUrl);
     setImage(URL.createObjectURL(file));
 
     const data = new FormData();
-    console.log(file);
+   
 
     data.append("file", file);
     data.append("upload_preset", "shopziel");
@@ -119,10 +118,12 @@ const SignUp = () => {
               display="none"
             />
             <label htmlFor="profilePicture">
-              <Avatar _hover={{cursor:"Pointer"}} size="xl" src={image} />
+              <Avatar _hover={{ cursor: "Pointer" }} size="xl" src={image} />
             </label>
 
-            <Text mt={"2"} fontWeight={"500"}>Profile Picture</Text>
+            <Text mt={"2"} fontWeight={"500"}>
+              Profile Picture
+            </Text>
           </Box>
         </HStack>
         <InputGroup>

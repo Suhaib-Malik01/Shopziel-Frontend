@@ -17,16 +17,21 @@ import React, { useEffect, useState } from "react";
 import { GrFormSubtract } from "react-icons/gr";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbExchange, TbShoppingBag, TbTruckDelivery } from "react-icons/tb";
-import { RiFlashlightFill, RiRefund2Line } from "react-icons/ri";
+import {
+  RiArrowDropDownLine,
+  RiCloseFill,
+  RiFlashlightFill,
+  RiRefund2Line,
+} from "react-icons/ri";
 import ProductSlider from "../Components/Products/ProductSlider";
 import { useLocation, useParams } from "react-router-dom";
 
 const Product = () => {
   const [check, setCheck] = useState(false);
 
-  
   const product = useLocation().state;
- 
+
+
   const [quantity, setQuantity] = useState(0);
 
   const decreaseQuantity = () => {
@@ -42,7 +47,7 @@ const Product = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  },[product])
+  }, [product]);
 
   return (
     <>
@@ -196,9 +201,13 @@ const Product = () => {
             fontSize={"xl"}
             bg={"gray.100"}
             p={"2"}
+            display={"flex"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
             borderRadius={"lg"}
           >
             Brand Details
+            {!check ? <RiArrowDropDownLine /> : <RiCloseFill />}
           </Heading>
 
           {check ? (

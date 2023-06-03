@@ -24,18 +24,47 @@ const ProductCard = (props) => {
 
   const { id, title, price, description, img, rating } = props;
 
+  const addToCart = async () => {
+
+   
+    const myHeaders = new Headers();
+
+    myHeaders.append(
+      "Authorization",
+      `Bearer ${sessionStorage.getItem("token")}`
+    );
+
+    myHeaders.append("Content-Type", "application/json");
+
+    try {
+      const response = await fetch(
+        "https://shopziel.up.railway.app/api/customers/cart/add",
+        {
+          method: "POST",
+          body: JSON.stringify({ "productId": id, "quantity": 1 }),
+          headers: myHeaders,
+        }
+      );
+
+      if (response.ok) {
+        alert("Product added to cart");
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   return (
-    <Card
-      
-      onClick={() => navigate(`/product/`, { state: props })}
-      _hover={{
-        cursor: "pointer",
-        "& .productTitle": {
-          color: "blue.500",
-        },
-      }}
-    >
-      <CardBody>
+    <Card>
+      <CardBody
+        _hover={{
+          cursor: "pointer",
+          "& .productTitle": {
+            color: "blue.500",
+          },
+        }}
+        onClick={() => navigate(`/product/`, { state: props })}
+      >
         <Box height="200px" width="100%" position="relative">
           <Image
             src={img}
@@ -81,6 +110,7 @@ const ProductCard = (props) => {
             borderRadius={"2rem"}
             bg={"buttonColor"}
             color="white"
+            onClick={addToCart}
             _hover={{ boxShadow: "lg" }}
           >
             <BsBag /> <Text ml={"2"}>Add To Cart</Text>

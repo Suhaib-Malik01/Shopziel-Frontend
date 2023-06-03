@@ -11,7 +11,9 @@ import {
 import React from "react";
 import CartProduct from "./CartProduct";
 
-const CartData = () => {
+const CartData = ({ cartData,fetchCartData }) => {
+
+    
   return (
     <HStack
       mt={"2rem"}
@@ -35,7 +37,11 @@ const CartData = () => {
           },
         }}
       >
-        <CartProduct />
+        {cartData.cartItems.length > 0
+          ? cartData.cartItems.map((ele, index) => {
+              return <CartProduct orderItemData={ele} key={index} fetchCartData={fetchCartData} />;
+            })
+          : null}
       </VStack>
 
       <Divider orientation="vertical" />
@@ -48,23 +54,23 @@ const CartData = () => {
           </Heading>
           <Flex w={"full"} justifyContent={"space-between"}>
             <Text color={"gray.600"} fontWeight={"600"}>
-              Sub Total
+              Total Products
             </Text>
-            <Text fontWeight={"700"}>80000</Text>
+            <Text fontWeight={"700"}>{cartData.totalProducts}</Text>
           </Flex>
           <Divider />
           <Flex w={"full"} justifyContent={"space-between"}>
             <Text color={"gray.600"} fontWeight={"600"}>
               Sub Total
             </Text>
-            <Text fontWeight={"700"}>80000</Text>
+            <Text fontWeight={"700"}>{cartData.cartTotal}</Text>
           </Flex>
           <Divider />
           <Flex w={"full"} justifyContent={"space-between"}>
             <Text color={"gray.600"} fontWeight={"600"}>
-              Sub Total
+              Payable Amount
             </Text>
-            <Text fontWeight={"700"}>80000</Text>
+            <Text fontWeight={"700"}>{cartData.cartTotal}</Text>
           </Flex>
           <Divider />
           <Button
