@@ -28,7 +28,10 @@ import {
 } from "react-icons/ai";
 import CartMenu from "./CartMenu";
 
-import {HiOutlineUser} from 'react-icons/hi'
+import { HiOutlineUser } from "react-icons/hi";
+import UserInfo from "./UserInfo";
+
+import { useEffect, useState } from "react";
 
 const Links = ["New Arrivals", "Sale"];
 
@@ -50,6 +53,40 @@ const NavLink = ({ children }) => (
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
+
+  const [user, setUser] = useState({});
+
+  const getUserData = async () => {
+    const myHeaders = new Headers();
+
+    myHeaders.append(
+      "Authorization",
+      `Bearer ${sessionStorage.getItem("token")}`
+    );
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    try {
+      let response = await fetch(
+        "https://shopziel.up.railway.app/api/customers/",
+        requestOptions
+      );
+
+      if (response.ok) {
+        let data = await response.json();
+        setUser(data);
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <>
@@ -78,7 +115,11 @@ export default function Navbar() {
           >
             <HStack alignItems={"center"}>
               <AiOutlineShop size={"35px"} />
-              <RouteLink to={"/"}><Heading fontSize={"3xl"} fontWeight={"500"}>Shopziel</Heading></RouteLink>
+              <RouteLink to={"/"}>
+                <Heading fontSize={"3xl"} fontWeight={"500"}>
+                  Shopziel
+                </Heading>
+              </RouteLink>
             </HStack>
             <HStack
               as={"nav"}
@@ -88,12 +129,16 @@ export default function Navbar() {
             >
               <InputGroup maxW={"500px"}>
                 <Input
-                borderRadius={"3xl"}
-                px={"5"}
+                  borderRadius={"3xl"}
+                  px={"5"}
                   placeholder="Search for Products"
                   w={["100%", "100%", "100%"]}
                 />
-                <InputRightElement px={"2"} mr={"1"} _hover={{ cursor: "pointer" }}>
+                <InputRightElement
+                  px={"2"}
+                  mr={"1"}
+                  _hover={{ cursor: "pointer" }}
+                >
                   <AiOutlineSearch size={"30px"} />
                 </InputRightElement>
               </InputGroup>
@@ -128,16 +173,25 @@ export default function Navbar() {
                 minW={0}
                 color={"black"}
               >
-                <HiOutlineUser  size={"30px"} />
+                <HiOutlineUser size={"30px"} />
               </MenuButton>
               <MenuList>
                 <MenuItem onClick={() => navigate("/cart")}>Cart</MenuItem>
                 <MenuItem>Orders</MenuItem>
                 <MenuDivider />
-                {localStorage.getItem("token") ? (
-                  <MenuItem>Sign out</MenuItem>
+                {sessionStorage.getItem("token") ? (
+                  <MenuItem
+                    onClick={() => {
+                      sessionStorage.removeItem("token");
+                      navigate("/");
+                    }}
+                  >
+                    Sign out
+                  </MenuItem>
                 ) : (
-                  <RouteLink to={"/signin"}><MenuItem>Sign In / Sign Up</MenuItem></RouteLink>
+                  <RouteLink to={"/signin"}>
+                    <MenuItem>Sign In / Sign Up</MenuItem>
+                  </RouteLink>
                 )}
               </MenuList>
             </Menu>
@@ -162,17 +216,39 @@ export default function Navbar() {
                 <HiOutlineUser size={"25px"} />
               </MenuButton>
               <MenuList>
+                {sessionStorage.getItem("token") ? (
+                  <MenuItem>
+                    <UserInfo userData={user} />
+                  </MenuItem>
+                ) : null}
                 <MenuItem>Orders</MenuItem>
                 <MenuItem>Coupons</MenuItem>
                 <MenuDivider />
-                {localStorage.getItem("token") ? (
-                  <MenuItem>Sign out</MenuItem>
+                {sessionStorage.getItem("token") ? (
+                  <MenuItem
+                    onClick={() => {
+                      sessionStorage.removeItem("token");
+                      navigate("/");
+                    }}
+                  >
+                    Sign out
+                  </MenuItem>
                 ) : (
-                  <RouteLink to={"/signin"}><MenuItem>Sign In / Sign Up</MenuItem></RouteLink>
+                  <RouteLink to={"/signin"}>
+                    <MenuItem>
+                      <Button
+                        colorScheme="green"
+                        borderRadius={"3xl"}
+                        variant={"outline"}
+                      >
+                        Sign In
+                      </Button>
+                    </MenuItem>
+                  </RouteLink>
                 )}
               </MenuList>
             </Menu>
-            <CartMenu  />
+            <CartMenu />
             <AiOutlineHeart size={"25px"} />
           </Flex>
         </Flex>

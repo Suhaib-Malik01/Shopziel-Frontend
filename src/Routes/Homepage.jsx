@@ -25,7 +25,7 @@ const Homepage = () => {
 
       if (!data.status) setProductArr(data);
     } catch (error) {
-      console.log("An error occurred:", error);
+      alert("An error occurred:", error);
     }
   };
 
@@ -49,7 +49,7 @@ const Homepage = () => {
 
       if (!data.status) setCategories(data);
     } catch (error) {
-      console.log("An error occurred:", error);
+      alert("An error occurred:", error);
     }
   };
 

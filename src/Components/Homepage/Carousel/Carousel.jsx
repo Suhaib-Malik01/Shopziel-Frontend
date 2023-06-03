@@ -19,7 +19,7 @@ export default function Carousel() {
   const cards = [1];
   return (
     <>
-      <Swiper
+      <Swiper 
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
@@ -31,10 +31,10 @@ export default function Carousel() {
         modules={[Navigation, Autoplay]}
         className="mySwiper"
       >
-        {cards.map((ele,index) => (
-          <SwiperSlide>
-            <Flex bg={"#e3ffe6"} w={"full"} h={"full"}>
-              <CarouselCard key={index}/>
+        {cards.map((ele, index) => (
+          <SwiperSlide key={index}>
+            <Flex bg={"#e3ffe6"} w={"full"}>
+              <CarouselCard />
             </Flex>
           </SwiperSlide>
         ))}

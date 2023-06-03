@@ -16,9 +16,11 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { CiLock, CiUnlock, CiUser } from "react-icons/ci";
 
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const signIn = async () => {
@@ -27,47 +29,23 @@ const Login = () => {
         return ele.value;
       }
     );
-    console.log(data);
 
-    // try {
-    //   let response = await fetch(
-    //     "https://shopziel.up.railway.app/api/users/signIn",
-    //     {
-    //       headers: {
-    //         Authorization: `Basic ${window.btoa(`${data[0]}:${data[1]}`)}`,
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-
-    //   if (response.ok) {
-    //     const responseResult = await response.json();
-    //     console.log(response)
-    //     console.log(responseResult);
-    //     console.log(response.headers.get("authorization"));
-    //     console.log(response.headers);
-    //   } else {
-    //     console.log("Login failed:", response.status);
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
     fetch("https://shopziel.up.railway.app/api/users/signIn", {
-    headers: {
-      Authorization: `Basic ${window.btoa(`${data[0]}:${data[1]}`)}`,
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      
-      const token = response.headers.get("authorization");
-      console.log(response)
-      console.log(token);
-      localStorage.setItem("token", token);
+      headers: {
+        Authorization: `Basic ${window.btoa(`${data[0]}:${data[1]}`)}`,
+        "Content-Type": "application/json",
+      },
     })
-    .catch((error) => {
-      alert(error.message);
-    });
+      .then((response) => {
+        const token = response.headers.get("authorization");
+
+        sessionStorage.setItem("token", token);
+
+        if (response.ok) navigate("/");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   return (
@@ -105,7 +83,7 @@ const Login = () => {
         </InputGroup>
         <Button
           w={"full"}
-          bg={"#0f172a"}
+          bg={"buttonColor"}
           color={"white"}
           colorScheme=""
           borderRadius={"3xl"}
@@ -116,7 +94,7 @@ const Login = () => {
         <Button
           w={"full"}
           maxW={"md"}
-          borderColor={"#0f172a"}
+          borderColor={"buttonColor"}
           variant={"outline"}
           borderRadius={"3xl"}
           leftIcon={<FcGoogle />}

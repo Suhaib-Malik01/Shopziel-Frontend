@@ -31,11 +31,10 @@ const SignUp = () => {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
 
-    console.log(imageUrl);
     setImage(URL.createObjectURL(file));
 
     const data = new FormData();
-    console.log(file);
+   
 
     data.append("file", file);
     data.append("upload_preset", "shopziel");
@@ -62,32 +61,26 @@ const SignUp = () => {
     data = Array.from(data).map((ele) => {
       return ele.value;
     });
-    
 
     if (data[3] !== data[4]) {
       alert("Password not matched");
       return;
     }
     try {
-       await fetch(
-        "https://shopziel.up.railway.app/api/users/",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            firstName: data[0],
-            lastName: data[1],
-            profileImgUrl: imageUrl,
-            email: data[2],
-            password: data[3],
-            role: "ROLE_CUSTOMER"
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }
-      );
-
-      
+      let response = await fetch("https://shopziel.up.railway.app/api/users/", {
+        method: "POST",
+        body: JSON.stringify({
+          firstName: data[0],
+          lastName: data[1],
+          profileImgUrl: imageUrl,
+          email: data[2],
+          password: data[3],
+          role: "ROLE_CUSTOMER",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     } catch (err) {
       alert(err);
     }
@@ -97,12 +90,15 @@ const SignUp = () => {
     <Container px={"1rem"} py={"2rem"}>
       <VStack
         boxShadow={"lg"}
-        spacing={["6","7","8"]}
+        spacing={["6", "7", "8"]}
         px={"1rem"}
         py={"2rem"}
         borderRadius={"xl"}
       >
-        <Img w={["80%","90%","100%"]} src="https://i.ibb.co/HhmvPmF/Artistic-Textured-Ink-Brush-Stroke-Brand-Logo.png" />
+        <Img
+          w={["80%", "90%", "100%"]}
+          src="https://i.ibb.co/HhmvPmF/Artistic-Textured-Ink-Brush-Stroke-Brand-Logo.png"
+        />
 
         <HStack
           justifyContent={"space-between"}
@@ -122,8 +118,12 @@ const SignUp = () => {
               display="none"
             />
             <label htmlFor="profilePicture">
-              <Avatar size="xl" src={image} />
+              <Avatar _hover={{ cursor: "Pointer" }} size="xl" src={image} />
             </label>
+
+            <Text mt={"2"} fontWeight={"500"}>
+              Profile Picture
+            </Text>
           </Box>
         </HStack>
         <InputGroup>
@@ -161,7 +161,7 @@ const SignUp = () => {
         </InputGroup>
         <Button
           w={"full"}
-          bg={"#0f172a"}
+          bg={"buttonColor"}
           color={"white"}
           colorScheme=""
           borderRadius={"3xl"}
@@ -172,7 +172,7 @@ const SignUp = () => {
         <Button
           w={"full"}
           maxW={"md"}
-          borderColor={"#0f172a"}
+          borderColor={"buttonColor"}
           variant={"outline"}
           borderRadius={"3xl"}
           leftIcon={<FcGoogle />}

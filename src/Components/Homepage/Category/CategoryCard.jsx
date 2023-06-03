@@ -1,8 +1,11 @@
 import { HStack, Heading, Img, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
-const CategoryCard = ({img,title}) => {
+const CategoryCard = ({ id, img, title, quantity,ele }) => {
+  const navigate = useNavigate();
+
   return (
     <VStack
       borderRadius="2xl"
@@ -18,26 +21,35 @@ const CategoryCard = ({img,title}) => {
       alignItems={"left"}
       transition={"all 0.2s"}
       _hover={{
-        boxShadow: "base",
+        boxShadow: "lg",
         "& .categoryCollection": {
           color: "blue.500",
         },
         cursor: "pointer",
       }}
+      onClick={() =>
+        sessionStorage.getItem("token")
+          ? navigate(`/products/`, { state: ele })
+          : navigate("/Signin")
+      }
     >
       <HStack justifyContent="space-between">
         <Img
-          w="20"
+          objectFit={"cover"}
+          maxW={"70px"}
+          h={"70px"}
           borderRadius="50%"
           bg="blackAlpha.100"
-          src="https://ciseco-nextjs.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F17.fcfa959c.png&w=828&q=75"
+          src={img}
         />
-        <Text fontWeight={500}>{"55 Products"}</Text>
+
+        <Text fontWeight={500}>{`${quantity} Products`}</Text>
       </HStack>
 
-      
-        <Heading fontSize={"3xl"} fontWeight={500}>{title}</Heading>
-    
+      <Heading fontSize={"3xl"} fontWeight={500}>
+        {title}
+      </Heading>
+
       <Text
         fontSize="md"
         display="flex"

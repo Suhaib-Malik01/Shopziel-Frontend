@@ -10,7 +10,6 @@ import Homepage from "./Homepage";
 import Product from "./Product";
 import Products from "./Products";
 
-
 const AllRoutes = () => {
   return (
     <BrowserRouter>
@@ -19,9 +18,9 @@ const AllRoutes = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/Signin" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/product/:id" element={<Product />} />
+        <Route path="/product/" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="" element={<Products />} />
+        <Route path="/products/" element={<Products />} />
       </Routes>
       <Footer />
     </BrowserRouter>
