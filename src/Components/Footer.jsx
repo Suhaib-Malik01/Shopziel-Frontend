@@ -7,12 +7,12 @@ const Footer = () => {
       bg="gray.800"
       color="white"
       py={6}
-      mt="auto"
+      
       textAlign="center"
       position={"relative"}
       left={0}
       right={0}
-      mb={"0"}
+      mt={"20"}
     >
       <Text fontSize="sm" mb={2}>
         &copy; 2023 Your E-commerce Website. All rights reserved.

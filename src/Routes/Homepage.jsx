@@ -10,6 +10,8 @@ const Homepage = () => {
 
   const [categories, setCategories] = useState([]);
 
+  const [Data, setData] = useState(false);
+
   const fetchData = async () => {
     var requestOptions = {
       method: "GET",
@@ -47,7 +49,7 @@ const Homepage = () => {
       );
       let data = await response.json();
 
-      if (!data.status) setCategories(data);
+      if (response.ok) setCategories(data);
     } catch (error) {
       alert("An error occurred:", error);
     }

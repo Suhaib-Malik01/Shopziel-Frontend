@@ -22,11 +22,9 @@ import { useNavigate } from "react-router-dom";
 const ProductCard = (props) => {
   const navigate = useNavigate();
 
-  const { id, title, price, description, img, rating } = props;
+  const { id, title, price, description, img, rating, ele } = props;
 
   const addToCart = async () => {
-
-   
     const myHeaders = new Headers();
 
     myHeaders.append(
@@ -41,7 +39,7 @@ const ProductCard = (props) => {
         "https://shopziel.up.railway.app/api/customers/cart/add",
         {
           method: "POST",
-          body: JSON.stringify({ "productId": id, "quantity": 1 }),
+          body: JSON.stringify({ productId: id, quantity: 1 }),
           headers: myHeaders,
         }
       );
@@ -63,7 +61,7 @@ const ProductCard = (props) => {
             color: "blue.500",
           },
         }}
-        onClick={() => navigate(`/product/`, { state: props })}
+        onClick={() => navigate(`/product/${id}`)}
       >
         <Box height="200px" width="100%" position="relative">
           <Image

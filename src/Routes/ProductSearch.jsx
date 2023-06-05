@@ -48,7 +48,6 @@ const ProductSearch = () => {
     fetchSearchResults();
   }, [keyword]);
 
-  console.log(keyword);
   return (
     <Container minH={"100vh"} minW={["100%", "90%", "70%"]} my={"10"}>
       <Heading fontSize={"3xl"} fontWeight={"500"}>
@@ -85,6 +84,7 @@ const ProductSearch = () => {
                     description={ele.description}
                     price={ele.price}
                     rating={ele.rating}
+                    ele={ele}
                   />
                 </GridItem>
               );
