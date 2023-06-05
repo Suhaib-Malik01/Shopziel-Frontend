@@ -1,26 +1,40 @@
 import { Container, Divider, Grid, GridItem, Heading } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CouponCard from "../Components/Coupons/CouponCard";
 
 const Coupons = () => {
+  const [couponsData, setCouponsData] = useState([]);
 
-    const fetchCoupons = () => {
+  const fetchCoupons = async () => {
+    const myHeaders = new Headers();
 
-        const myHeaders = new Headers();
+    myHeaders.append(
+      "Authorization",
+      `Bearer ${sessionStorage.getItem("token")}`
+    );
 
-        myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem("token")}`)
-
-        try{
-
-            const response = fetch('')
+    try {
+      const response = await fetch(
+        "https://shopziel.up.railway.app/api/customers/offers",
+        {
+          method: "GET",
+          headers: myHeaders,
         }
-        catch(err){
+      );
 
-        }
+      if (response.ok) {
+        const responseData = await response.json();
 
+        setCouponsData(responseData);
+      }
+    } catch (err) {
+      alert(err);
     }
+  };
 
-
+  useEffect(() => {
+    fetchCoupons();
+  }, []);
 
   return (
     <Container minH={"90vh"} minW={["100%", "90%", "70%"]} mt={"5"}>
@@ -33,15 +47,19 @@ const Coupons = () => {
         templateColumns={["repeat(2,1fr)", "repeat(2,1fr)"]}
         gap={"5"}
       >
-        <GridItem>
-          <CouponCard />
-        </GridItem>
-        <GridItem>
-          <CouponCard />
-        </GridItem>
-        <GridItem>
-          <CouponCard />
-        </GridItem>
+        {couponsData.length > 0
+          ? couponsData.map((coupon, index) => {
+              return (
+                <GridItem key={index}>
+                  <CouponCard
+                    title={coupon.offerName}
+                    description={coupon.offerDescription}
+                    date={coupon.offerExpiresOn}
+                  />
+                </GridItem>
+              );
+            })
+          : null}
       </Grid>
     </Container>
   );

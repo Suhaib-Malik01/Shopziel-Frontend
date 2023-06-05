@@ -1,6 +1,7 @@
 import { StarIcon } from "@chakra-ui/icons";
 import {
   Avatar,
+  Box,
   Button,
   Divider,
   Flex,
@@ -12,6 +13,7 @@ import {
   Img,
   Text,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { GrFormSubtract } from "react-icons/gr";
@@ -24,14 +26,21 @@ import {
   RiRefund2Line,
 } from "react-icons/ri";
 import ProductSlider from "../Components/Products/ProductSlider";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import ReviewCard from "../Components/Review/reviewCard";
+import PostReviewMenu from "../Components/Review/PostReviewMenu";
 
 const Product = () => {
   const [check, setCheck] = useState(false);
 
-  const product = useLocation().state;
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const { id } = useParams();
+
+  const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+
+  const [category, setCategory] = useState(null);
 
   const decreaseQuantity = () => {
     if (quantity <= 1) {
@@ -42,6 +51,54 @@ const Product = () => {
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
+  };
+
+  const fetchProductData = async () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        `https://shopziel.up.railway.app/api/products/${id}`,
+        requestOptions
+      );
+      let data = await response.json();
+
+      if (response.ok) {
+        setProduct(data);
+        fetchProducts(data.categoryId);
+      }
+    } catch (error) {
+      console.log("An error occurred:", error);
+    }
+  };
+
+  const fetchProducts = async (categoryId) => {
+    const myHeaders = new Headers();
+
+    myHeaders.append(
+      "Authorization",
+      `Bearer ${sessionStorage.getItem("token")}`
+    );
+
+    try {
+      const response = await fetch(
+        `https://shopziel.up.railway.app/api/category/${categoryId}`,
+        {
+          method: "GET",
+          headers: myHeaders,
+        }
+      );
+
+      if (response.ok) {
+        const responseData = await response.json();
+        setCategory(responseData);
+      }
+    } catch (err) {
+      alert(err);
+    }
   };
 
   const addToCart = async () => {
@@ -75,8 +132,9 @@ const Product = () => {
   };
 
   useEffect(() => {
+    fetchProductData();
     window.scrollTo(0, 0);
-  });
+  }, [id]);
 
   return (
     <>
@@ -92,13 +150,13 @@ const Product = () => {
           <Img
             w={"90%"}
             borderRadius={"3xl"}
-            src={product.img}
+            src={product.image}
             border={"1px solid"}
             borderColor={"gray.100"}
           />
         </VStack>
         <VStack px={"3"} w={"full"} alignItems={"left"} spacing={"4"}>
-          <Heading>{product.title}</Heading>
+          <Heading>{product.name}</Heading>
           <Flex gap={"4"}>
             <Text fontSize={"xl"} fontWeight={"500"}>
               ₹ {product.price}
@@ -260,29 +318,49 @@ const Product = () => {
           </Heading>
 
           {/* Reviews Data... */}
-          <VStack alignItems={"left"} justifyContent={"center"}>
-            <Flex gap={"3"} alignItems={"start"}>
-              <Avatar src="https://i.ibb.co/zncSFwz/download.jpg" />
-              <VStack w={"full"} alignItems={"left"}>
-                <Text fontSize={"md"} fontWeight={"500"}>
-                  Itachi Uchiha
-                </Text>
-
-                <HStack>
-                  <Img
-                    borderRadius={"lg"}
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAJI3Djxuzw_afMJAQpDkUgU9ivgZQNe3-3g&usqp=CAU"
-                  />
-                </HStack>
-                <Text fontSize={"md"}>
-                  Great Shoes, good for running, party, casual,
-                </Text>
-              </VStack>
+          <VStack gap={"2"} alignItems={"left"} justifyContent={"center"}>
+            <Flex w={"full"} justifyContent={"right"}>
+              <Button
+                onClick={onOpen}
+                borderRadius={"3xl"}
+                color={"white"}
+                bg="buttonColor"
+              >
+                Post Review
+              </Button>
             </Flex>
+
+            <Divider />
+
+            <Box maxH={"500px"} overflowY={"auto"}>
+              {product.reviews
+                ? product.reviews.map((review, index) => {
+                    return (
+                      <>
+                        <ReviewCard
+                          reviewMsg={review.review}
+                          key={index}
+                          img={review.imageUrl}
+                        />
+                        <Divider my={"2"} />
+                      </>
+                    );
+                  })
+                : null}
+            </Box>
           </VStack>
         </VStack>
       </Flex>
-      <ProductSlider title={"People Also buy"} data={[]} />
+      <ProductSlider
+        title={"People Also buy"}
+        data={category ? category.products : []}
+      />
+
+      <PostReviewMenu
+        isOpen={isOpen}
+        onClose={onClose}
+        productId={product.productId}
+      />
     </>
   );
 };
