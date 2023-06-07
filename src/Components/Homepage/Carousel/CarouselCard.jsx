@@ -7,9 +7,11 @@ const CarouselCard = () => {
     <Flex
       w={["95%", "90%", "78%"]}
       py={["5rem", "4rem", "4rem", "0rem"]}
+      
       alignItems={"center"}
       justifyContent={"space-between"}
       m={"auto"}
+      
       bgImage={
         "https://ciseco-nextjs.vercel.app/_next/static/media/Moon.d5aa06ae.svg"
       }
@@ -42,9 +44,11 @@ const CarouselCard = () => {
 
       <VStack
         justifyContent={"flex-end"}
-        w={"85%"}
+        w={"full"}
+        h={"full"}
         display={["none", "none", "none", "block"]}
         alignItems="flex-end"
+        
       >
         {/* <Player
           autoplay
@@ -54,7 +58,8 @@ const CarouselCard = () => {
         /> */}
 
         <Img
-          objectFit={"contain"}
+          objectFit={"fill"}
+          
           h={"full"}
           src="https://ciseco-nextjs.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero-right.a9b085d9.png&w=1080&q=75"
         />

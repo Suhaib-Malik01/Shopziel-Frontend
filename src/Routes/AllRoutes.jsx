@@ -11,6 +11,7 @@ import Product from "./Product";
 import Products from "./Products";
 import ProductSearch from "./ProductSearch";
 import Coupons from "./Coupons";
+import Payments from "./Payments";
 
 const AllRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AllRoutes = () => {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/products/" element={<Products />} />
+        <Route path="/cart/payments" element={<Payments />} />
         <Route path="/products/search/:keyword" element={<ProductSearch />} />
         <Route path="/coupons" element={<Coupons />} />
       </Routes>
