@@ -12,14 +12,14 @@ import "./Carousel.scss";
 
 // import required modules
 import { Navigation, Autoplay } from "swiper";
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import CarouselCard from "./CarouselCard";
 
 export default function Carousel() {
   const cards = [1];
   return (
     <>
-      <Swiper 
+      <Swiper
         slidesPerView={1}
         spaceBetween={30}
         loop={true}

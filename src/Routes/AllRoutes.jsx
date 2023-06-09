@@ -11,22 +11,49 @@ import Product from "./Product";
 import Products from "./Products";
 import ProductSearch from "./ProductSearch";
 import Coupons from "./Coupons";
+import Payments from "./Payments";
+import SellerDashboard from "./SellerDashboard";
 
-const AllRoutes = () => {
+const OpenRoutes = () => {
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/Signin" element={<Login />} />
+        <Route path="" element={<Homepage />} />
+        <Route path="/signin" element={<Login />} />
+      </Routes>
+      <Footer />
+    </>
+  );
+};
+
+const CustomerRoutes = () => {
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/products/" element={<Products />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/cart/payments" element={<Payments />} />
         <Route path="/products/search/:keyword" element={<ProductSearch />} />
         <Route path="/coupons" element={<Coupons />} />
       </Routes>
       <Footer />
+    </>
+  );
+};
+
+const AllRoutes = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/*" element={<OpenRoutes />} />
+        <Route path="/customer/*" element={<CustomerRoutes />} />
+        <Route path="/seller/*" element={<SellerDashboard />} />
+      </Routes>
     </BrowserRouter>
   );
 };

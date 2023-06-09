@@ -4,6 +4,7 @@ import Carousel from "../Components/Homepage/Carousel/Carousel";
 import ProductSlider from "../Components/Products/ProductSlider";
 import { Divider } from "@chakra-ui/react";
 import CategoryBox from "../Components/Homepage/Category/CategoryBox";
+import PurchaseFlow from "../Components/PurchaseFlow/PurchaseFlow";
 
 const Homepage = () => {
   const [productArr, setProductArr] = useState([]);
@@ -69,6 +70,10 @@ const Homepage = () => {
         title={"Discover more."}
         subTitle={"Good things are waiting for you"}
       />
+
+      <Divider w={"80%"} m={"auto"} my={"4rem"} />
+
+      <PurchaseFlow />
 
       <Divider w={"80%"} m={"auto"} my={"4rem"} />
 
