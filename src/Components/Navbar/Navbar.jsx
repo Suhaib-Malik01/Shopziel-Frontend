@@ -104,7 +104,9 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    getUserData();
+    if (sessionStorage.getItem("token")) {
+      getUserData();
+    }
   }, []);
 
   return (
