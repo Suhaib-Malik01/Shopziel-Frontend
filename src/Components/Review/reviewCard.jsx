@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-const ReviewCard = ({ reviewMsg, img }) => {
+const ReviewCard = ({ reviewMsg, img}) => {
   return (
     <Flex gap={"4"} alignItems={"start"}>
       <Avatar src="https://i.ibb.co/zncSFwz/download.jpg" />

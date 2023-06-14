@@ -12,6 +12,7 @@ import {
   InputRightElement,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -26,6 +27,8 @@ const SignUp = () => {
 
   const [image, setImage] = useState("");
 
+  const toast = useToast();
+
   const [imageUrl, setImageUrl] = useState("");
 
   const handleFileChange = async (event) => {
@@ -34,7 +37,6 @@ const SignUp = () => {
     setImage(URL.createObjectURL(file));
 
     const data = new FormData();
-   
 
     data.append("file", file);
     data.append("upload_preset", "shopziel");
@@ -81,8 +83,22 @@ const SignUp = () => {
           "Content-Type": "application/json",
         },
       });
+
+      if (response.ok) {
+        toast({
+          title: "Signup Successful",
+          status: "success",
+          duration: 3000,
+          position: "top",
+        });
+      }
     } catch (err) {
-      alert(err);
+      toast({
+        title: { err },
+        status: "error",
+        duration: 3000,
+        position: "top",
+      });
     }
   };
 

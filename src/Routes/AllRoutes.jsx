@@ -13,7 +13,6 @@ import ProductSearch from "./ProductSearch";
 import Coupons from "./Coupons";
 import Payments from "./Payments";
 import SellerDashboard from "./SellerDashboard";
-import { Box, Flex } from "@chakra-ui/react";
 
 const OpenRoutes = () => {
   return (
@@ -21,6 +20,7 @@ const OpenRoutes = () => {
       <Navbar />
       <Routes>
         <Route path="" element={<Homepage />} />
+        <Route path="/product/:id" element={<Product />} />
         <Route path="/signin" element={<Login />} />
       </Routes>
       <Footer />
@@ -33,9 +33,8 @@ const CustomerRoutes = () => {
     <>
       <Navbar />
       <Routes>
-        <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/product/:id" element={<Product />} />
+
         <Route path="/cart" element={<Cart />} />
         <Route path="/products" element={<Products />} />
         <Route path="/cart/payments" element={<Payments />} />

@@ -9,6 +9,7 @@ import {
   InputRightElement,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -22,6 +23,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const toast = useToast();
 
   const signIn = async () => {
     const data = Array.from(document.getElementsByClassName("data")).map(
@@ -41,10 +43,23 @@ const Login = () => {
 
         sessionStorage.setItem("token", token);
 
-        if (response.ok) navigate("/");
+        if (response.ok) {
+          toast({
+            title: "Login Successful",
+            status: "success",
+            duration: 3000,
+            position: "top",
+          });
+          navigate("/");
+        }
       })
       .catch((error) => {
-        alert(error.message);
+        toast({
+          title: { error },
+          status: "error",
+          duration: 3000,
+          position: "top",
+        });
       });
   };
 

@@ -12,6 +12,7 @@ import {
   Image,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { BsBag } from "react-icons/bs";
@@ -23,6 +24,8 @@ const ProductCard = (props) => {
   const navigate = useNavigate();
 
   const { id, title, price, description, img, rating, ele } = props;
+
+  const toast = useToast();
 
   const addToCart = async () => {
     const myHeaders = new Headers();
@@ -45,7 +48,13 @@ const ProductCard = (props) => {
       );
 
       if (response.ok) {
-        alert("Product added to cart");
+        toast({
+          title : "Added to Cart",
+          status : "success",
+          duration : 3000,
+          isClosable : true,
+          position : 'top'
+        })
       }
     } catch (err) {
       alert(err);
@@ -108,7 +117,11 @@ const ProductCard = (props) => {
             borderRadius={"2rem"}
             bg={"buttonColor"}
             color="white"
-            onClick={addToCart}
+            onClick={() =>
+              sessionStorage.getItem("token")
+                ? addToCart()
+                : navigate("/signin")
+            }
             _hover={{ boxShadow: "lg" }}
           >
             <BsBag /> <Text ml={"2"}>Add To Cart</Text>
