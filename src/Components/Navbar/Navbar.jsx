@@ -206,7 +206,6 @@ export default function Navbar() {
           </Flex>
 
           {/* desktop screen */}
-
           <Flex
             gap={"3"}
             ml={["0", "1", "5"]}
