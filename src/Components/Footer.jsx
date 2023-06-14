@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 const Footer = () => {
   return (
@@ -7,7 +7,6 @@ const Footer = () => {
       bg="gray.800"
       color="white"
       py={6}
-      
       textAlign="center"
       position={"relative"}
       left={0}

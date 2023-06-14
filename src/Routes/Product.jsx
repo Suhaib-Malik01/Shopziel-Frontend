@@ -14,6 +14,7 @@ import {
   Text,
   VStack,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { GrFormSubtract } from "react-icons/gr";
@@ -26,15 +27,18 @@ import {
   RiRefund2Line,
 } from "react-icons/ri";
 import ProductSlider from "../Components/Products/ProductSlider";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "../Components/Review/reviewCard";
 import PostReviewMenu from "../Components/Review/PostReviewMenu";
 
 const Product = () => {
   const [check, setCheck] = useState(false);
 
+  const navigate = useNavigate();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const toast = useToast();
   const { id } = useParams();
 
   const [product, setProduct] = useState({});
@@ -76,19 +80,11 @@ const Product = () => {
   };
 
   const fetchProducts = async (categoryId) => {
-    const myHeaders = new Headers();
-
-    myHeaders.append(
-      "Authorization",
-      `Bearer ${sessionStorage.getItem("token")}`
-    );
-
     try {
       const response = await fetch(
         `https://shopziel.up.railway.app/api/category/${categoryId}`,
         {
           method: "GET",
-          headers: myHeaders,
         }
       );
 
@@ -117,17 +113,27 @@ const Product = () => {
         {
           method: "POST",
           body: JSON.stringify({
-            productId: product.id,
+            productId: product.productId,
             quantity: quantity,
           }),
           headers: myHeaders,
         }
       );
       if (response.ok) {
-        alert("Product added to cart");
+        toast({
+          title: "Added to cart",
+          status: "success",
+          duration: 3000,
+          position: "top",
+        });
       }
     } catch (err) {
-      alert(err);
+      toast({
+        title: { err },
+        status: "error",
+        duration: 3000,
+        position: "top",
+      });
     }
   };
 
@@ -206,13 +212,13 @@ const Product = () => {
             </Flex>
             <Button
               w={"full"}
+              onClick={addToCart}
               borderRadius={"full"}
               h={"4rem"}
               bg={"buttonColor"}
               fontSize={"lg"}
               color={"white"}
-              onClick={addToCart}
-              _hover={{ boxShadow: "lg" }}
+              _hover={{ bg: "buttonColor", boxShadow: "lg" }}
             >
               <TbShoppingBag fontSize={"20px"} />{" "}
               <Text ml={"2"}>Add To Cart</Text>
@@ -289,7 +295,7 @@ const Product = () => {
             fontSize={"xl"}
             bg={"gray.100"}
             p={"2"}
-            display={"flex"}
+            display={product.brandDetails ? "none" : "flex"}
             justifyContent={"space-between"}
             alignItems={"center"}
             borderRadius={"lg"}
@@ -321,10 +327,15 @@ const Product = () => {
           <VStack gap={"2"} alignItems={"left"} justifyContent={"center"}>
             <Flex w={"full"} justifyContent={"right"}>
               <Button
-                onClick={onOpen}
+                onClick={() =>
+                  sessionStorage.getItem("token")
+                    ? onOpen()
+                    : navigate("/signin")
+                }
                 borderRadius={"3xl"}
                 color={"white"}
                 bg="buttonColor"
+                _hover={{ bg: "buttonColor" }}
               >
                 Post Review
               </Button>
@@ -336,14 +347,14 @@ const Product = () => {
               {product.reviews
                 ? product.reviews.map((review, index) => {
                     return (
-                      <>
+                      <Box key={index}>
                         <ReviewCard
                           reviewMsg={review.review}
-                          key={index}
                           img={review.imageUrl}
+                         
                         />
                         <Divider my={"2"} />
-                      </>
+                      </Box>
                     );
                   })
                 : null}
@@ -360,6 +371,7 @@ const Product = () => {
         isOpen={isOpen}
         onClose={onClose}
         productId={product.productId}
+        reloadProduct={fetchProductData}
       />
     </>
   );

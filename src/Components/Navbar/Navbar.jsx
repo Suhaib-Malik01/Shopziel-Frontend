@@ -17,17 +17,16 @@ import {
   InputGroup,
   Heading,
   InputRightElement,
+  useToast,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 import {
-  // AiOutlineShoppingCart,
   AiOutlineHeart,
   AiOutlineShop,
   AiOutlineSearch,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import CartMenu from "./CartMenu";
 
 import { HiOutlineUser } from "react-icons/hi";
 import UserInfo from "./UserInfo";
@@ -53,6 +52,9 @@ const NavLink = ({ children }) => (
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const toast = useToast();
+
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
@@ -85,6 +87,16 @@ export default function Navbar() {
       if (response.ok) {
         let data = await response.json();
         setUser(data);
+      } else {
+        sessionStorage.removeItem("token");
+        toast({
+          title: "Login",
+          description: "Login Expired...",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+          position: "top",
+        });
       }
     } catch (err) {
       alert(err);
@@ -184,7 +196,15 @@ export default function Navbar() {
                 <HiOutlineUser size={"30px"} />
               </MenuButton>
               <MenuList>
-                <MenuItem onClick={() => navigate("/cart")}>Cart</MenuItem>
+                <MenuItem
+                  onClick={() =>
+                    sessionStorage.getItem("token")
+                      ? navigate("/customer/cart")
+                      : navigate("/signin")
+                  }
+                >
+                  Cart
+                </MenuItem>
                 <MenuItem>Orders</MenuItem>
                 <MenuDivider />
                 {sessionStorage.getItem("token") ? (
@@ -228,8 +248,24 @@ export default function Navbar() {
                     <UserInfo userData={user} />
                   </MenuItem>
                 ) : null}
-                <MenuItem>Orders</MenuItem>
-                <MenuItem onClick={() => navigate("/coupons")}>Coupons</MenuItem>
+                <MenuItem
+                  onClick={() =>
+                    sessionStorage.getItem("token")
+                      ? navigate("/")
+                      : navigate("/signin")
+                  }
+                >
+                  Orders
+                </MenuItem>
+                <MenuItem
+                  onClick={() =>
+                    sessionStorage.getItem("token")
+                      ? navigate("/customer/coupons")
+                      : navigate("/signin")
+                  }
+                >
+                  Coupons
+                </MenuItem>
                 <MenuDivider />
                 {sessionStorage.getItem("token") ? (
                   <MenuItem
@@ -256,7 +292,11 @@ export default function Navbar() {
               </MenuList>
             </Menu>
             <AiOutlineShoppingCart
-              onClick={() => navigate("/cart")}
+              onClick={() =>
+                sessionStorage.getItem("token")
+                  ? navigate("/customer/cart")
+                  : navigate("/signin")
+              }
               size={"25px"}
             />
             <AiOutlineHeart size={"25px"} />

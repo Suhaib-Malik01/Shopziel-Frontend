@@ -12,14 +12,17 @@ import {
   Flex,
   Image,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 
-const PostReviewModal = ({ isOpen, onClose, productId }) => {
+const PostReviewModal = ({ isOpen, onClose, productId, reloadProduct }) => {
   const [reviewText, setReviewText] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
+
+  const toast = useToast();
 
   const handleReviewTextChange = (event) => {
     setReviewText(event.target.value);
@@ -47,6 +50,7 @@ const PostReviewModal = ({ isOpen, onClose, productId }) => {
     }
   };
 
+  // handle image upload
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     uploadImage(file);
@@ -65,6 +69,7 @@ const PostReviewModal = ({ isOpen, onClose, productId }) => {
     event.preventDefault();
   };
 
+  // Handle image drop
   const handleDrop = (event) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
@@ -72,7 +77,6 @@ const PostReviewModal = ({ isOpen, onClose, productId }) => {
     uploadImage(file);
     setImageFile(file);
 
-    // Generate a preview image URL
     const tempImageURL = URL.createObjectURL(file);
     setImagePreview(tempImageURL);
   };
@@ -110,7 +114,14 @@ const PostReviewModal = ({ isOpen, onClose, productId }) => {
       );
 
       if (response.ok) {
-        alert("Review added successfully");
+        reloadProduct();
+        toast({
+          title: "Review Added",
+          description: "Thank you for your valuable feedback",
+          duration: "3000",
+          status: "success",
+          position: "top",
+        });
       } else {
         throw new Error("Failed to add review");
       }
@@ -118,7 +129,7 @@ const PostReviewModal = ({ isOpen, onClose, productId }) => {
       alert(err.message);
     }
 
-    onClose(); // Close the modal after submitting the review
+    onClose();
   };
 
   return (

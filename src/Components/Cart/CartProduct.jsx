@@ -1,11 +1,18 @@
-import { Box, Flex, IconButton, Img, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  Img,
+  Text,
+  VStack,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GrFormSubtract } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 
 const CartProduct = ({ orderItemData, fetchCartData }) => {
-  
   const [quantity, setQuantity] = useState(0);
 
   const decreaseQuantity = () => {
@@ -14,6 +21,8 @@ const CartProduct = ({ orderItemData, fetchCartData }) => {
     }
     setQuantity(quantity - 1);
   };
+
+  const toast = useToast();
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -38,10 +47,27 @@ const CartProduct = ({ orderItemData, fetchCartData }) => {
 
       if (response.ok) {
         fetchCartData();
-        alert("Product deleted");
+        toast({
+          title: "Product Removed From cart",
+          status: "success",
+          duration: 3000,
+          position: "top",
+        });
+      } else {
+        toast({
+          title: "Something went wrong",
+          status: "error",
+          duration: 3000,
+          position: "top",
+        });
       }
     } catch (err) {
-      alert(err);
+      toast({
+        title: { err },
+        status: "error",
+        duration: 3000,
+        position: "top",
+      });
     }
   };
 
