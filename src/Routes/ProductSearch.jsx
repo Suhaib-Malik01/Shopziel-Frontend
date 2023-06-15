@@ -56,7 +56,7 @@ const ProductSearch = () => {
 
       <Divider my={"5"} />
 
-      <HStack gap={"20"} justifyContent={"right"}>
+      <HStack gap={"20"} justifyContent={"right"} display={"none"}>
         <Select borderRadius={"3xl"} placeholder="Sort By"></Select>
       </HStack>
 
