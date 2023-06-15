@@ -3,9 +3,9 @@ import React from "react";
 import CategoryCard from "./CategoryCard";
 
 const CategoryBox = ({ arr }) => {
-  
   return (
     <VStack
+      className="categoryBox"
       w={["100%", "78%"]}
       m="auto"
       p={["10", "16", "28"]}
@@ -32,7 +32,7 @@ const CategoryBox = ({ arr }) => {
               img={ele.image}
               title={ele.name}
               quantity={ele.products.length}
-              ele = {ele}
+              ele={ele}
             />
           </GridItem>
         ))}

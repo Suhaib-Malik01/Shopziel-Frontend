@@ -6,6 +6,7 @@ import {
   HStack,
   Heading,
   Select,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import ProductCard from "../Components/Products/ProductCard";
@@ -15,6 +16,8 @@ const Products = () => {
   const location = useLocation();
 
   const { products } = location.state;
+
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -119,7 +119,7 @@ const Login = () => {
           </Center>
         </Button>
         <Text fontSize={"md"}>
-          New Member ? <Link to={"/signup"}>Sign Up</Link>{" "}
+          New Member ? <Link to={"/customer/signup"}>Sign Up</Link>{" "}
         </Text>
       </VStack>
     </Container>

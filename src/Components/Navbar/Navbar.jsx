@@ -61,7 +61,7 @@ export default function Navbar() {
 
   const handleSearchInput = (e) => {
     if (e.keyCode === 13) {
-      navigate(`/products/search/${e.target.value}`);
+      navigate(`/customer/products/search/${e.target.value}`);
     }
   };
 
@@ -181,6 +181,7 @@ export default function Navbar() {
                   <Input
                     placeholder="Search for Products"
                     w={["100%", "100%", "100%"]}
+                    onKeyDown={handleSearchInput}
                   />
                   <InputRightElement />
                 </InputGroup>

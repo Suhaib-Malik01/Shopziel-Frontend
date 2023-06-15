@@ -10,10 +10,11 @@ import {
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GrFormSubtract } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
 
 const CartProduct = ({ orderItemData, fetchCartData }) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(
+    orderItemData ? orderItemData.quantity : 1
+  );
 
   const decreaseQuantity = () => {
     if (quantity <= 0) {
@@ -112,9 +113,7 @@ const CartProduct = ({ orderItemData, fetchCartData }) => {
                 size={"sm"}
                 onClick={decreaseQuantity}
               />
-              <Text fontSize={"md"}>
-                {orderItemData ? orderItemData.quantity : null}
-              </Text>
+              <Text fontSize={"md"}>{quantity}</Text>
               <IconButton
                 icon={<AiOutlinePlus />}
                 border={"1px solid"}

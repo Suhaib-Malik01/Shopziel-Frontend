@@ -6,6 +6,7 @@ import {
   HStack,
   Heading,
   Select,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -16,20 +17,14 @@ const ProductSearch = () => {
 
   const [products, setProducts] = useState();
 
+  const toast = useToast();
+
   const fetchSearchResults = async () => {
-    const myHeaders = new Headers();
-
-    myHeaders.append(
-      "Authorization",
-      `Bearer ${sessionStorage.getItem("token")}`
-    );
-
     try {
       const response = await fetch(
         `https://shopziel.up.railway.app/api/products/search/${keyword}`,
         {
           method: "GET",
-          headers: myHeaders,
         }
       );
 
@@ -37,7 +32,12 @@ const ProductSearch = () => {
         let fetchedProducts = await response.json();
         setProducts(fetchedProducts);
       } else {
-        alert("Something went wrong");
+        toast({
+          title: "Something went wrong",
+          status: "error",
+          duration: 3000,
+          position: "top",
+        });
       }
     } catch (err) {
       alert(err);

@@ -13,6 +13,7 @@ import ProductSearch from "./ProductSearch";
 import Coupons from "./Coupons";
 import Payments from "./Payments";
 import SellerDashboard from "./SellerDashboard";
+import RandomPage from "../Components/randomPage";
 
 const OpenRoutes = () => {
   return (
