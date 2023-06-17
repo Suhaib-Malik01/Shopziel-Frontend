@@ -13,6 +13,7 @@ import {
   Image,
   VStack,
   useToast,
+  ModalOverlay,
 } from "@chakra-ui/react";
 
 const PostReviewModal = ({ isOpen, onClose, productId, reloadProduct }) => {
@@ -134,6 +135,7 @@ const PostReviewModal = ({ isOpen, onClose, productId, reloadProduct }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={handleCancel}>
+      <ModalOverlay />
       <ModalContent>
         <ModalHeader>Post Review</ModalHeader>
         <ModalCloseButton />
@@ -166,7 +168,11 @@ const PostReviewModal = ({ isOpen, onClose, productId, reloadProduct }) => {
                 <Box as="span" fontSize="sm" color="gray.500">
                   or
                 </Box>
-                <Button onClick={handleSelectFile} colorScheme="blue">
+                <Button
+                  borderRadius={"3xl"}
+                  onClick={handleSelectFile}
+                  colorScheme="blue"
+                >
                   Select File
                 </Button>
               </VStack>
@@ -183,13 +189,19 @@ const PostReviewModal = ({ isOpen, onClose, productId, reloadProduct }) => {
           <Button
             color={"white"}
             bg="buttonColor"
-            colorScheme="blue"
+            _hover={{ bg: "buttonColor", boxShadow: "base" }}
             mr={3}
+            borderRadius={"3xl"}
             onClick={handleSubmit}
           >
             Submit Review
           </Button>
-          <Button colorScheme="red" variant={"outline"} onClick={handleCancel}>
+          <Button
+            borderRadius={"3xl"}
+            colorScheme="red"
+            variant={"outline"}
+            onClick={handleCancel}
+          >
             Cancel
           </Button>
         </ModalFooter>

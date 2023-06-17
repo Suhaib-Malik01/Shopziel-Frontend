@@ -3,7 +3,7 @@ import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-const CategoryCard = ({ id, img, title, quantity,ele }) => {
+const CategoryCard = ({ id, img, title, quantity}) => {
   const navigate = useNavigate();
 
   return (
@@ -28,9 +28,8 @@ const CategoryCard = ({ id, img, title, quantity,ele }) => {
         cursor: "pointer",
       }}
       onClick={() =>
-        sessionStorage.getItem("token")
-          ? navigate(`/products/`, { state: ele })
-          : navigate("/Signin")
+       navigate(`/customer/products/${id}`)
+          
       }
     >
       <HStack justifyContent="space-between">

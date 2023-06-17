@@ -1,6 +1,5 @@
 import { StarIcon } from "@chakra-ui/icons";
 import {
-  Avatar,
   Box,
   Button,
   Divider,
@@ -27,7 +26,7 @@ import {
   RiRefund2Line,
 } from "react-icons/ri";
 import ProductSlider from "../Components/Products/ProductSlider";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "../Components/Review/reviewCard";
 import PostReviewMenu from "../Components/Review/PostReviewMenu";
 
@@ -73,6 +72,7 @@ const Product = () => {
       if (response.ok) {
         setProduct(data);
         fetchProducts(data.categoryId);
+        console.log(data);
       }
     } catch (error) {
       console.log("An error occurred:", error);
@@ -306,16 +306,12 @@ const Product = () => {
 
           {check ? (
             <Text fontSize={"md"} textAlign={"justify"}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, sint
-              omnis cupiditate enim illum tempora ab dolorem esse! Hic nemo
-              adipisci dignissimos praesentium placeat deserunt mollitia laborum
-              corporis dolorem impedit? Voluptatum quia adipisci assumenda illo
-              tempora totam odit commodi eum reiciendis quo, pariatur error
-              deserunt cupiditate doloremque earum sit odio aliquam magni alias
-              id quas aut. Labore voluptatum aliquid beatae? Sequi asperiores
-              labore doloribus inventore dignissimos odit natus ad doloremque ex
-              sit animi dolore repellendus fugiat, beatae error ea dicta non
-              architecto harum odio cum facere provident. Sint, eum doloribus?
+              Shopziel is a premier clothing brand that caters to
+              outdoor enthusiasts who seek both style and functionality in their
+              apparel. Inspired by the beauty of nature and the thrill of
+              adventure, TrailTrek Apparel offers a range of high-performance
+              outdoor clothing that empowers individuals to explore the great
+              outdoors with confidence and comfort.
             </Text>
           ) : null}
 
@@ -351,7 +347,7 @@ const Product = () => {
                         <ReviewCard
                           reviewMsg={review.review}
                           img={review.imageUrl}
-                         
+                          reviewCustomer = {review.customer}
                         />
                         <Divider my={"2"} />
                       </Box>

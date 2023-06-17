@@ -8,7 +8,7 @@ const Footer = () => {
       color="white"
       py={6}
       textAlign="center"
-      position={"relative"}
+      position={"sticky"}
       left={0}
       right={0}
       mt={"20"}

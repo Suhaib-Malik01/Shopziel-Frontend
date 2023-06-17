@@ -13,6 +13,7 @@ import ProductSearch from "./ProductSearch";
 import Coupons from "./Coupons";
 import Payments from "./Payments";
 import SellerDashboard from "./SellerDashboard";
+import SellerRequest from "./SellerRequest";
 
 const OpenRoutes = () => {
   return (
@@ -36,10 +37,11 @@ const CustomerRoutes = () => {
         <Route path="/signup" element={<SignUp />} />
 
         <Route path="/cart" element={<Cart />} />
-        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<Products />} />
         <Route path="/cart/payments" element={<Payments />} />
         <Route path="/products/search/:keyword" element={<ProductSearch />} />
         <Route path="/coupons" element={<Coupons />} />
+        <Route path="/seller-request" element={<SellerRequest />} />
       </Routes>
       <Footer />
     </>
