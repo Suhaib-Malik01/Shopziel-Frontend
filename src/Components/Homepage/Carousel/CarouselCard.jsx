@@ -38,7 +38,7 @@ const CarouselCard = () => {
           colorScheme=""
           size={"lg"}
         >
-          <Text mr={"2"} onClick={".categoryBox"}>Explore Now</Text> <BsSearch />
+          <Text mr={"2"}>Explore Now</Text> <BsSearch />
         </Button>
       </VStack>
 

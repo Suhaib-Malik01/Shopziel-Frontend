@@ -62,7 +62,7 @@ const ProductCard = (props) => {
   };
 
   return (
-    <Card>
+    <Card h={"480px"}>
       <CardBody
         _hover={{
           cursor: "pointer",
@@ -79,10 +79,9 @@ const ProductCard = (props) => {
             objectFit="cover"
             height="100%"
             width="100%"
-            position="absolute"
-            top="0"
-            left="0"
-            borderRadius={"2xl"}
+            m={"auto"}
+
+            borderRadius={"3xl"}
           />
         </Box>
 
@@ -109,7 +108,7 @@ const ProductCard = (props) => {
         </Flex>
       </CardBody>
       <Divider color={"gray.200"} />
-      <CardFooter gap={"3"} alignItems={"center"}>
+      <CardFooter alignItems={"center"}>
         <HStack w={"full"} gap={"1"} justifyContent={"space-between"}>
           <AiOutlineHeart fontSize={"25px"} />
           <Button

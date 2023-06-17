@@ -13,14 +13,14 @@ import {
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-const ReviewCard = ({ reviewMsg, img}) => {
+const ReviewCard = ({ reviewMsg, img,reviewCustomer}) => {
   return (
     <Flex gap={"4"} alignItems={"start"}>
-      <Avatar src="https://i.ibb.co/zncSFwz/download.jpg" />
+      <Avatar src={reviewCustomer.profileImgUrl} />
       <VStack w={"full"} alignItems={"left"} mt={"2"}>
         <HStack w={"100%"} justifyContent={"space-between"}>
           <Text fontSize={"md"} fontWeight={"500"}>
-            Itachi Uchiha
+            {reviewCustomer.firstName + " " + reviewCustomer.lastName}
           </Text>
           <Menu>
             <MenuButton>

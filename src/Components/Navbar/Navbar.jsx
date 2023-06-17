@@ -113,7 +113,7 @@ export default function Navbar() {
     <>
       <Box
         px={4}
-        w={["100%", "100%", "70%"]}
+        w={["100%", "100%", "80%", "70%"]}
         m={"auto"}
         position={"relative"}
         zIndex={"2"}
@@ -209,6 +209,7 @@ export default function Navbar() {
                   Cart
                 </MenuItem>
                 <MenuItem>Orders</MenuItem>
+                <MenuItem onClick={() => navigate("/customer/seller-request")}>Become a Seller</MenuItem>
                 <MenuDivider />
                 {sessionStorage.getItem("token") ? (
                   <MenuItem
@@ -233,7 +234,17 @@ export default function Navbar() {
             gap={"3"}
             ml={["0", "1", "5"]}
             display={["none", "none", "flex"]}
+            alignItems={"center"}
           >
+            <Button
+              _hover={{ boxShadow: "base" }}
+              variant={"outline"}
+              colorScheme="black"
+              onClick={() => navigate("/customer/seller-request")}
+              borderRadius={"3xl"}
+            >
+              Become a Seller
+            </Button>
             <Menu>
               <MenuButton
                 as={Button}
@@ -241,9 +252,8 @@ export default function Navbar() {
                 variant={"link"}
                 cursor={"pointer"}
                 minW={0}
-                color={"black"}
               >
-                <HiOutlineUser size={"25px"} />
+                <HiOutlineUser color="black" fontSize={"25px"} />
               </MenuButton>
               <MenuList>
                 {sessionStorage.getItem("token") ? (
@@ -281,15 +291,7 @@ export default function Navbar() {
                   </MenuItem>
                 ) : (
                   <RouteLink to={"/signin"}>
-                    <MenuItem>
-                      <Button
-                        colorScheme="green"
-                        borderRadius={"3xl"}
-                        variant={"outline"}
-                      >
-                        Sign In
-                      </Button>
-                    </MenuItem>
+                    <MenuItem>Sign In</MenuItem>
                   </RouteLink>
                 )}
               </MenuList>

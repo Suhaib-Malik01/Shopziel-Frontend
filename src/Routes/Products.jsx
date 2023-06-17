@@ -6,7 +6,6 @@ import {
   HStack,
   Heading,
   Select,
-  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ProductCard from "../Components/Products/ProductCard";

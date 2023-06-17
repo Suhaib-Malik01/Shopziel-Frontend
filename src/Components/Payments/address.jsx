@@ -1,24 +1,23 @@
 import React from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-const AddressDetails = () => {
-  const address = {
-    street: "123 Main Street",
-    city: "Example City",
-    state: "Example State",
-    postalCode: "12345",
-    country: "Example Country",
-  };
-
+const AddressDetails = ({
+  addressType,
+  city,
+  state,
+  country,
+  postalCode,
+  street,
+  address,
+}) => {
   return (
     <Box m="5" w="full">
       <Heading py={"2"} fontSize="xl">
-        Home
+        {addressType}
       </Heading>
 
       <Text fontSize={"md"} fontWeight={"500"}>
-        <b>Address:</b> {address.street}, {address.city}, {address.state},{" "}
-        {address.postalCode}, {address.country}
+        <b>Address:</b> {address}, {street}, {city}, {state}, {postalCode}, {country}
       </Text>
     </Box>
   );
