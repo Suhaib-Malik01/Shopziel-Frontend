@@ -14,6 +14,8 @@ import Coupons from "./Coupons";
 import Payments from "./Payments";
 import SellerDashboard from "./SellerDashboard";
 import SellerRequest from "./SellerRequest";
+import { Flex, Stack } from "@chakra-ui/react";
+import SellerProduct from "../Components/SellerProduct";
 
 const OpenRoutes = () => {
   return (
@@ -50,9 +52,14 @@ const CustomerRoutes = () => {
 
 const SellerRoute = () => {
   return (
-    <>
+    <Flex>
       <SellerDashboard />
-    </>
+      <Stack w={"85%"}>
+        <Routes>
+          <Route path="/products" element={<SellerProduct />} />
+        </Routes>
+      </Stack>
+    </Flex>
   );
 };
 

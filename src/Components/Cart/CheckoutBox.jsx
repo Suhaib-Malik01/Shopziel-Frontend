@@ -46,6 +46,7 @@ const CheckoutBox = ({ cartData }) => {
           h={"3rem"}
           color={"white"}
           bg={"buttonColor"}
+          id="rzp-button1"
         >
           Proceed to Checkout
         </Button>

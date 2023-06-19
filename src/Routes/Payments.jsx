@@ -22,6 +22,10 @@ const Payments = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const createPayment = () => {
+    
+  };
+
   const getCustomerAddress = async () => {
     const myHeader = new Headers();
     myHeader.append(
@@ -101,7 +105,7 @@ const Payments = () => {
             </Flex>
           </VStack>
 
-          <CheckoutBox cartData={{}} />
+          <CheckoutBox cartData={{}} createPayment={createPayment} />
         </Flex>
       </Box>
 
